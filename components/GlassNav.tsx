@@ -1,0 +1,545 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname, useRouter } from 'next/navigation';
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CONSTANTS
+───────────────────────────────────────────────────────────────────────────── */
+
+const EASE   = [0.16, 1, 0.3, 1] as [number, number, number, number];
+const SPRING = { type: 'spring', stiffness: 400, damping: 36, mass: 0.8 } as const;
+
+const NAV_ITEMS = [
+  { label: 'Home',         id: 'hero',         path: '/' },
+  { label: 'Our Story',    id: 'our-story',    path: '/' },
+  { label: 'Our Founder',  id: 'our-founder',  path: '/our-founder' },
+  { label: 'Services',     id: 'services',     path: '/' },
+  { label: 'Testimonials', id: 'testimonials', path: '/' },
+  { label: 'Contact Us',   id: 'contact',      path: '/' },
+] as const;
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   SHARED GLASS STYLES
+───────────────────────────────────────────────────────────────────────────── */
+
+const BORDER_SHELL: React.CSSProperties = {
+  padding:      '1px',
+  borderRadius: '999px',
+  background:   `linear-gradient(
+    175deg,
+    rgba(255,255,255,0.8) 0%,
+    rgba(255,255,255,0.4) 100%
+  )`,
+  boxShadow: [
+    'inset 0 0 0 1px rgba(0,0,0,0.04)',
+    '0 4px  12px rgba(0,0,0,0.04)',
+    '0 16px 40px rgba(0,0,0,0.08)',
+  ].join(', '),
+};
+
+const GLASS_SURFACE: React.CSSProperties = {
+  position:             'relative',
+  borderRadius:         '999px',
+  background:           'rgba(255, 255, 255, 0.65)',
+  backdropFilter:       'blur(24px) saturate(180%) brightness(102%)',
+  WebkitBackdropFilter: 'blur(24px) saturate(180%) brightness(102%)',
+  overflow:             'hidden',
+};
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   COMPONENT
+───────────────────────────────────────────────────────────────────────────── */
+
+export default function GlassNav() {
+  const [active,   setActive]   = useState(0);
+  const [mounted,  setMounted]  = useState(false);
+  const [pill,     setPill]     = useState({ left: 0, width: 0 });
+  const [isMobile, setIsMobile] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const navRef   = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const pathname = usePathname();
+  const router = useRouter();
+
+  /* Set initial active state based on route */
+  useEffect(() => {
+    const idx = NAV_ITEMS.findIndex(item => item.path === pathname);
+    if (idx !== -1) setActive(idx);
+  }, [pathname]);
+
+  /* measure pill geometry */
+  const recalcPill = (idx: number) => {
+    const btn = itemRefs.current[idx];
+    const nav = navRef.current;
+    if (!btn || !nav) return;
+    const nb = nav.getBoundingClientRect();
+    const bb = btn.getBoundingClientRect();
+    setPill({ left: bb.left - nb.left, width: bb.width });
+  };
+
+  /* mount */
+  useEffect(() => {
+    setMounted(true);
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check, { passive: true });
+    
+    // Slight delay to ensure layout is done before first measure
+    const t = setTimeout(() => {
+      const initialIdx = NAV_ITEMS.findIndex(item => item.path === pathname);
+      recalcPill(initialIdx !== -1 ? initialIdx : 0);
+    }, 80);
+
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener('resize', check);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  /* re-measure on active change */
+  useEffect(() => {
+    if (mounted && !isMobile) recalcPill(active);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active, mounted, isMobile]);
+
+  /* re-measure on resize */
+  useEffect(() => {
+    if (!mounted) return;
+    const fn = () => { if (!isMobile) recalcPill(active); };
+    window.addEventListener('resize', fn, { passive: true });
+    return () => window.removeEventListener('resize', fn);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active, mounted, isMobile]);
+
+  /* scroll → section tracking (only for elements on current page) */
+  useEffect(() => {
+    const obs = NAV_ITEMS.map(({ id, path }, i) => {
+      // Don't track sections that don't exist on this route
+      if (path !== pathname) return null;
+
+      const el = document.getElementById(id);
+      if (!el) return null;
+      const o = new IntersectionObserver(
+        ([e]) => { if (e.isIntersecting) setActive(i); },
+        { threshold: 0.45 }
+      );
+      o.observe(el);
+      return o;
+    });
+    return () => obs.forEach(o => o?.disconnect());
+  }, [pathname]);
+
+  const handleNav = (i: number, id: string, path: string) => {
+    setActive(i);
+    setMenuOpen(false);
+    
+    if (pathname === path) {
+      // Same page, smooth scroll to section or top
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } else {
+      // Different page, perform Next.js navigation
+      // If it's not the top of the target page, append the hash
+      const isTopSection = id === 'hero' || id === 'our-founder';
+      router.push(isTopSection ? path : `${path}#${id}`);
+    }
+  };
+
+  const handleGetStarted = () => {
+    setMenuOpen(false);
+    router.push('/#contact');
+  };
+
+  /* ── render ── */
+  return (
+    <>
+      <img
+        src="/logoo.jpeg"
+        alt="Viruthi Logo"
+        onClick={() => router.push('/')}
+        style={{
+          position: 'fixed',
+          top: '20px',
+          left: '24px',
+          height: '42px',
+          width: 'auto',
+          zIndex: 1000,
+          objectFit: 'contain',
+          cursor: 'pointer',
+        }}
+      />
+      <div
+        style={{
+          position:  'fixed',
+          top:       '20px',
+          left:      isMobile ? 'auto' : '50%',
+          right:     isMobile ? '20px' : 'auto',
+          transform: isMobile ? 'none' : 'translateX(-50%)',
+          zIndex:    1000,
+        }}
+      >
+      <motion.div
+        initial={{ opacity: 0, y: -18 }}
+        animate={{ opacity: 1,  y: 0   }}
+        transition={{ duration: 1.0, delay: 0.15, ease: EASE }}
+      >
+        {/* ── DESKTOP NAV ─────────────────────────────────────────────── */}
+        {mounted && !isMobile && (
+          <div style={BORDER_SHELL}>
+            <div
+              ref={navRef}
+              style={{
+                ...GLASS_SURFACE,
+                display:     'flex',
+                alignItems:  'center',
+                gap:         '4px',
+                padding:     '12px 16px',
+              }}
+            >
+              {/* Refraction highlight */}
+              <div
+                aria-hidden="true"
+                style={{
+                  position:      'absolute',
+                  top:           '1px',
+                  left:          '6%',
+                  right:         '6%',
+                  height:        '1px',
+                  background:    'linear-gradient(90deg,transparent,rgba(0,0,0,0.06) 25%,rgba(0,0,0,0.06) 75%,transparent)',
+                  pointerEvents: 'none',
+                  zIndex:        10,
+                }}
+              />
+
+              {/* Sliding active pill */}
+              <motion.div
+                aria-hidden="true"
+                animate={{ left: pill.left, width: pill.width }}
+                transition={SPRING}
+                style={{
+                  position:      'absolute',
+                  top:           '5px',
+                  bottom:        '5px',
+                  borderRadius:  '999px',
+                  background:    '#ffffff',
+                  border:        '1px solid rgba(0,0,0,0.04)',
+                  boxShadow: [
+                    '0 2px  8px rgba(0,0,0,0.06)',
+                    '0 4px 16px rgba(0,0,0,0.04)',
+                  ].join(', '),
+                  pointerEvents: 'none',
+                  zIndex:        1,
+                }}
+              />
+
+              {/* Nav items */}
+              {NAV_ITEMS.map((item, i) => {
+                const active_ = i === active;
+                return (
+                  <button
+                    key={item.id}
+                    ref={el => { itemRefs.current[i] = el; }}
+                    onClick={() => handleNav(i, item.id, item.path)}
+                    style={{
+                      position:      'relative',
+                      zIndex:        2,
+                      fontFamily:    'var(--font-satoshi)',
+                      fontSize:      '12.5px',
+                      fontWeight:    active_ ? 500 : 400,
+                      letterSpacing: '0.01em',
+                      color:         active_
+                                       ? '#000000'
+                                       : 'rgba(0,0,0,0.55)',
+                      background:    'none',
+                      border:        'none',
+                      padding:       '10px 18px',
+                      borderRadius:  '999px',
+                      cursor:        'none',
+                      whiteSpace:    'nowrap',
+                      lineHeight:    1,
+                      transition:    'color 0.3s ease',
+                      userSelect:    'none',
+                      WebkitFontSmoothing: 'antialiased',
+                      transform:     'translateZ(0)',
+                      backfaceVisibility: 'hidden',
+                    }}
+                    onMouseEnter={e => {
+                      if (!active_)
+                        (e.currentTarget as HTMLElement).style.color = 'rgba(0,0,0,0.85)';
+                    }}
+                    onMouseLeave={e => {
+                      if (!active_)
+                        (e.currentTarget as HTMLElement).style.color = 'rgba(0,0,0,0.55)';
+                    }}
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
+
+              {/* ── GET STARTED BUTTON ── */}
+              <button
+                onClick={handleGetStarted}
+                style={{
+                  position:      'relative',
+                  zIndex:        2,
+                  fontFamily:    'var(--font-satoshi)',
+                  fontSize:      '12.5px',
+                  fontWeight:    600,
+                  letterSpacing: '0.02em',
+                  color:         '#ffffff',
+                  background:    '#000000',
+                  border:        'none',
+                  padding:       '12px 24px',
+                  borderRadius:  '999px',
+                  cursor:        'none',
+                  whiteSpace:    'nowrap',
+                  lineHeight:    1,
+                  marginLeft:    '16px',
+                  boxShadow:     '0 4px 14px rgba(0,0,0,0.15)',
+                  transition:    'box-shadow 0.3s ease, transform 0.2s ease',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(0,0,0,0.25)';
+                  (e.currentTarget as HTMLElement).style.transform = 'scale(1.05)';
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 14px rgba(0,0,0,0.15)';
+                  (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+                }}
+              >
+                Get Started
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ── MOBILE NAV ──────────────────────────────────────────────── */}
+        {mounted && isMobile && (
+          <div>
+            <div style={BORDER_SHELL}>
+              <div
+                style={{
+                  ...GLASS_SURFACE,
+                  display:        'flex',
+                  alignItems:     'center',
+                  justifyContent: 'center',
+                  padding:        '8px 16px',
+                }}
+              >
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position:      'absolute',
+                    top:           '1px',
+                    left:          '8%',
+                    right:         '8%',
+                    height:        '1px',
+                    background:    'linear-gradient(90deg,transparent,rgba(0,0,0,0.06) 30%,rgba(0,0,0,0.06) 70%,transparent)',
+                    pointerEvents: 'none',
+                    zIndex:        10,
+                  }}
+                />
+
+                <button
+                  onClick={() => setMenuOpen(v => !v)}
+                  aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+                  style={{
+                    position:       'relative',
+                    zIndex:         2,
+                    background:     'none',
+                    border:         'none',
+                    cursor:         'none',
+                    padding:        '8px 0',
+                    display:        'flex',
+                    flexDirection:  'column',
+                    alignItems:     'flex-end',
+                    justifyContent: 'center',
+                    gap:            '5px',
+                    width:          '28px',
+                    height:         '32px',
+                  }}
+                >
+                  <motion.span
+                    animate={menuOpen
+                      ? { rotate: 45, y: 6, width: '100%' }
+                      : { rotate: 0,  y: 0, width: '100%' }}
+                    transition={{ duration: 0.35, ease: 'easeInOut' }}
+                    style={{
+                      display:         'block',
+                      width:           '100%',
+                      height:          '1px',
+                      background:      'rgba(0,0,0,0.85)',
+                      borderRadius:    '999px',
+                      transformOrigin: 'center',
+                    }}
+                  />
+                  <motion.span
+                    animate={menuOpen
+                      ? { opacity: 0, scaleX: 0 }
+                      : { opacity: 1, scaleX: 1 }}
+                    transition={{ duration: 0.2 }}
+                    style={{
+                      display:      'block',
+                      width:        '65%',
+                      height:       '1px',
+                      background:   'rgba(0,0,0,0.85)',
+                      borderRadius: '999px',
+                    }}
+                  />
+                  <motion.span
+                    animate={menuOpen
+                      ? { rotate: -45, y: -6, width: '100%' }
+                      : { rotate: 0,   y: 0,  width: '100%' }}
+                    transition={{ duration: 0.35, ease: 'easeInOut' }}
+                    style={{
+                      display:         'block',
+                      width:           '100%',
+                      height:          '1px',
+                      background:      'rgba(0,0,0,0.85)',
+                      borderRadius:    '999px',
+                      transformOrigin: 'center',
+                    }}
+                  />
+                </button>
+              </div>
+            </div>
+
+            <AnimatePresence>
+              {menuOpen && (
+                <motion.div
+                  key="mobile-menu"
+                  initial={{ opacity: 0, y: -10, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0,   scale: 1    }}
+                  exit={{    opacity: 0, y: -10,  scale: 0.96 }}
+                  transition={{ duration: 0.32, ease: EASE }}
+                  style={{
+                    marginTop:     '8px',
+                    padding:       '1px',
+                    borderRadius:  '20px',
+                    background:    `linear-gradient(175deg, rgba(255,255,255,0.80) 0%, rgba(255,255,255,0.40) 100%)`,
+                    boxShadow:     'inset 0 0 0 1px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.08), 0 24px 64px rgba(0,0,0,0.04)',
+                    transformOrigin: 'top right',
+                    minWidth:      '200px',
+                    position:      'absolute',
+                    right:         0,
+                    top:           '100%',
+                  }}
+                >
+                  <div
+                    style={{
+                      borderRadius:         '19px',
+                      background:           'rgba(255, 255, 255, 0.65)',
+                      backdropFilter:       'blur(36px) saturate(180%) brightness(102%)',
+                      WebkitBackdropFilter: 'blur(36px) saturate(180%) brightness(102%)',
+                      padding:              '8px',
+                      overflow:             'hidden',
+                    }}
+                  >
+                    <div
+                      aria-hidden="true"
+                      style={{
+                        height:     '1px',
+                        background: 'linear-gradient(90deg,transparent,rgba(0,0,0,0.06) 30%,rgba(0,0,0,0.06) 70%,transparent)',
+                        marginBottom: '8px',
+                      }}
+                    />
+
+                    {NAV_ITEMS.map((item, i) => (
+                      <motion.button
+                        key={item.id}
+                        initial={{ opacity: 0, x: -6  }}
+                        animate={{ opacity: 1, x: 0   }}
+                        transition={{ duration: 0.22, delay: i * 0.045, ease: EASE }}
+                        onClick={() => handleNav(i, item.id, item.path)}
+                        style={{
+                          display:       'block',
+                          width:         '100%',
+                          fontFamily:    'var(--font-satoshi)',
+                          fontSize:      '14px',
+                          fontWeight:    i === active ? 500 : 400,
+                          letterSpacing: '0.01em',
+                          color:         i === active
+                                           ? '#000000'
+                                           : 'rgba(0,0,0,0.6)',
+                          background:    i === active ? '#ffffff' : 'transparent',
+                          border:        'none',
+                          borderRadius:  '12px',
+                          padding:       '14px 18px',
+                          textAlign:     'left',
+                          cursor:        'none',
+                          lineHeight:    1,
+                          transition:    'background 0.2s ease, color 0.2s ease',
+                        }}
+                        onMouseEnter={e => {
+                          if (i !== active) {
+                            (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.5)';
+                            (e.currentTarget as HTMLElement).style.color = 'rgba(0,0,0,0.85)';
+                          }
+                        }}
+                        onMouseLeave={e => {
+                          if (i !== active) {
+                            (e.currentTarget as HTMLElement).style.background = 'transparent';
+                            (e.currentTarget as HTMLElement).style.color = 'rgba(0,0,0,0.6)';
+                          }
+                        }}
+                      >
+                        {item.label}
+                      </motion.button>
+                    ))}
+
+                    <motion.button
+                      initial={{ opacity: 0, x: -6  }}
+                      animate={{ opacity: 1, x: 0   }}
+                      transition={{ duration: 0.22, delay: NAV_ITEMS.length * 0.045, ease: EASE }}
+                      onClick={handleGetStarted}
+                      style={{
+                        display:       'block',
+                        width:         '100%',
+                        fontFamily:    'var(--font-satoshi)',
+                        fontSize:      '14px',
+                        fontWeight:    600,
+                        letterSpacing: '0.02em',
+                        color:         '#ffffff',
+                        background:    '#000000',
+                        border:        'none',
+                        borderRadius:  '12px',
+                        padding:       '14px 18px',
+                        textAlign:     'center',
+                        cursor:        'none',
+                        lineHeight:    1,
+                        marginTop:     '8px',
+                        boxShadow:     '0 4px 14px rgba(0,0,0,0.15)',
+                        transition:    'transform 0.2s ease, box-shadow 0.2s ease',
+                      }}
+                      onMouseEnter={e => {
+                        (e.currentTarget as HTMLElement).style.transform = 'scale(1.02)';
+                        (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(0,0,0,0.25)';
+                      }}
+                      onMouseLeave={e => {
+                        (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+                        (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 14px rgba(0,0,0,0.15)';
+                      }}
+                    >
+                      Get Started
+                    </motion.button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
+      </motion.div>
+    </div>
+    </>
+  );
+}

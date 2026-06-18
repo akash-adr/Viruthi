@@ -8,12 +8,24 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        satoshi: ["Satoshi", "-apple-system", "sans-serif"],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        black: "#000000",
+        white: "#ffffff",
+      },
+      letterSpacing: {
+        "hero": "-0.03em",
+        "micro": "0.25em",
+        "label": "0.2em",
+      },
+      lineHeight: {
+        "hero": "0.9",
       },
     },
   },
   plugins: [],
 };
+
 export default config;

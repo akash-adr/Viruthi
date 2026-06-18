@@ -2,26 +2,177 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ─────────────────────────────────────────────────────────────────────────────
+   SATOSHI — Self-hosted from Fontshare
+   ───────────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Variable.woff2') format('woff2');
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   DESIGN TOKENS
+   ───────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --black: #0D0D0D;
+  --white: #F7F5F2;
+  --page-bg: #F7F5F2;
+  --page-bg-alt: #FFFFFF;
+  --ink: #0D0D0D;
+  --ink-75: rgba(13,13,13,0.75);
+  --ink-40: rgba(13,13,13,0.40);
+  --ink-15: rgba(13,13,13,0.15);
+  --ink-08: rgba(13,13,13,0.08);
+  --white-65: rgba(255, 255, 255, 0.65);
+  --white-50: rgba(255, 255, 255, 0.50);
+  --white-35: rgba(255, 255, 255, 0.35);
+  --white-10: rgba(255, 255, 255, 0.10);
+  --font-satoshi: 'Satoshi', -apple-system, sans-serif;
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-opacity: opacity 0.3s ease;
+  --nav-h-pad: 48px;
+  --nav-v-pad: 32px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   BASE RESET
+   ───────────────────────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-satoshi);
+  background-color: var(--page-bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--page-bg);
+  color: var(--ink);
+  font-family: var(--font-satoshi);
+  cursor: none;
+  overflow-x: hidden;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* ─────────────────────────────────────────────────────────────────────────────
+   GLOBAL INTERACTION RULES
+   ───────────────────────────────────────────────────────────────────────────── */
+
+a,
+button,
+[role="button"] {
+  cursor: none;
+  text-decoration: none;
+  outline: none;
+}
+
+/* Remove ALL browser default borders/radius except pill */
+button {
+  border: none;
+  background: none;
+  font-family: var(--font-satoshi);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--ink-08);
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CUSTOM CURSOR
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.cursor {
+  width: 8px;
+  height: 8px;
+  background: var(--ink);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s var(--ease-premium), 
+              width 0.3s var(--ease-premium), 
+              height 0.3s var(--ease-premium),
+              opacity 0.3s ease;
+  will-change: transform;
+}
+
+.cursor--expanded {
+  width: 24px;
+  height: 24px;
+  opacity: 0.4;
+}
+
+.cursor--inverted {
+  background: #ffffff !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   HOVER TRANSITIONS — global rule for all interactive text/buttons
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.hover-opacity {
+  transition: opacity 0.3s ease;
+}
+
+.hover-opacity:hover {
+  opacity: 1 !important;
 }
