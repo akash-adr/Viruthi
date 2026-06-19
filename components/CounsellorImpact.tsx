@@ -48,7 +48,7 @@ export default function CounsellorImpact() {
       style={{
         width: '100%',
         minHeight: '100vh',
-        background: '#F7F5F2',
+        background: '#FFFFFF',
         padding: '120px 5vw',
         display: 'flex',
         flexDirection: 'column',
@@ -80,7 +80,7 @@ export default function CounsellorImpact() {
               textTransform: 'uppercase',
             }}
           >
-            CHAPTER 01 / PROVEN CAPABILITIES
+            PROVEN CAPABILITIES
           </motion.span>
 
           {/* Main Title & Quote Container */}
@@ -102,13 +102,14 @@ export default function CounsellorImpact() {
               style={{
                 fontSize: 'clamp(32px, 4vw, 56px)',
                 fontWeight: 600,
+                fontStyle: 'italic',
                 letterSpacing: '-0.02em',
                 color: '#0D0D0D',
                 margin: 0,
                 lineHeight: 1,
               }}
             >
-              Marking an impact
+              Making an impact
             </motion.h2>
 
             <motion.p

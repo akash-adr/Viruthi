@@ -84,6 +84,13 @@ export default function CounsellorHero() {
             margin-left: 0 !important;
             transform: rotate(-2deg) !important;
           }
+          .hero-bg-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 40%, transparent 100%);
+            z-index: 2;
+          }
         }
         @media (max-width: 480px) {
           .hero-bg-img {

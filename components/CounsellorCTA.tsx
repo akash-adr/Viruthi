@@ -121,6 +121,7 @@ export default function CounsellorCTA() {
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
             <button
+              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
               style={{
                 background: '#0D0D0D',
                 color: '#FFFFFF',
@@ -141,6 +142,7 @@ export default function CounsellorCTA() {
             </button>
 
             <button
+              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
               style={{
                 background: 'transparent',
                 color: '#0D0D0D',

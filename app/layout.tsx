@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 
 import GlassNav from "@/components/GlassNav";
 import Footer from "@/components/Footer";
+import { TransitionProvider } from "@/context/TransitionContext";
 
 export default function RootLayout({
   children,
@@ -24,17 +25,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body>
         <CustomCursor />
-        <LenisProvider>
-          <GlassNav />
-          {children}
-          <Footer />
-        </LenisProvider>
+        <TransitionProvider>
+          <LenisProvider>
+            <GlassNav />
+            {children}
+            <Footer />
+          </LenisProvider>
+        </TransitionProvider>
       </body>
     </html>
   );

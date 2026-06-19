@@ -11,9 +11,9 @@ const playfair = Playfair_Display({
 });
 
 const STEPS = [
-  { word: 'relationship', image: '/1.jpeg' },
-  { word: 'marriage',     image: '/2.jpeg' },
-  { word: 'connection',   image: '/3.jpeg' },
+  { word: 'relationship', image: '/1.jpeg?v=2' },
+  { word: 'marriage',     image: '/2.jpeg?v=2' },
+  { word: 'connection',   image: '/3.jpeg?v=2' },
 ];
 
 export default function SplitSection() {
@@ -36,30 +36,74 @@ export default function SplitSection() {
   return (
     <div
       ref={containerRef}
-      id="split-section"
+      id="our-story"
       style={{ height: '300vh', position: 'relative' }}
     >
+      <style>{`
+        .split-container {
+          flex-direction: row;
+        }
+        .split-left {
+          width: 45%;
+          padding-left: 80px;
+          padding-right: 48px;
+        }
+        .split-divider {
+          width: 1px;
+          height: auto;
+        }
+        .split-right {
+          flex: 1;
+        }
+        @media (max-width: 768px) {
+          .split-container {
+            flex-direction: column-reverse !important;
+          }
+          .split-left {
+            width: 100% !important;
+            height: 50% !important;
+            padding: 40px 24px !important;
+            align-items: center !important;
+            text-align: center !important;
+          }
+          .split-left h2 {
+            text-align: center !important;
+            margin-bottom: 16px !important;
+          }
+          .split-left p {
+            text-align: center !important;
+          }
+          .split-divider {
+            width: 100% !important;
+            height: 1px !important;
+          }
+          .split-right {
+            width: 100% !important;
+            height: 50% !important;
+            flex: none !important;
+          }
+        }
+      `}</style>
       <div
+        className="split-container"
         style={{
           position: 'sticky',
           top: 0,
           height: '100vh',
           display: 'flex',
-          background: '#F7F5F2',
+          background: '#FFFFFF',
           overflow: 'hidden',
         }}
       >
 
         {/* ── LEFT: belief column — still ── */}
         <div
+          className="split-left"
           style={{
-            width: '45%',
             flexShrink: 0,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            paddingLeft: '80px',
-            paddingRight: '48px',
             position: 'relative',
             zIndex: 2,
           }}
@@ -69,6 +113,7 @@ export default function SplitSection() {
             style={{
               fontSize: 'clamp(32px, 4vw, 56px)',
               fontWeight: 400,
+              fontStyle: 'italic',
               letterSpacing: '-0.02em',
               color: '#0D0D0D',
               margin: 0,
@@ -111,8 +156,8 @@ export default function SplitSection() {
 
         {/* ── DIVIDER ── */}
         <div
+          className="split-divider"
           style={{
-            width: '1px',
             background: 'rgba(13,13,13,0.08)',
             flexShrink: 0,
             alignSelf: 'stretch',
@@ -120,7 +165,7 @@ export default function SplitSection() {
         />
 
         {/* ── RIGHT: scroll-reactive panel ── */}
-        <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+        <div className="split-right" style={{ position: 'relative', overflow: 'hidden' }}>
 
           {/* Full-bleed images — crossfade */}
           {STEPS.map((s, i) => (

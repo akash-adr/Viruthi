@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { useTransition } from '@/context/TransitionContext';
 
 /* ─────────────────────────────────────────────────────────────────────────────
    CONSTANTS
@@ -13,7 +14,6 @@ const SPRING = { type: 'spring', stiffness: 400, damping: 36, mass: 0.8 } as con
 
 const NAV_ITEMS = [
   { label: 'Home',         id: 'hero',         path: '/' },
-  { label: 'Our Story',    id: 'our-story',    path: '/' },
   { label: 'Our Founder',  id: 'our-founder',  path: '/our-founder' },
   { label: 'Services',     id: 'services',     path: '/' },
   { label: 'Testimonials', id: 'testimonials', path: '/' },
@@ -63,7 +63,10 @@ export default function GlassNav() {
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const pathname = usePathname();
-  const router = useRouter();
+  const { isActive, startTransition } = useTransition();
+
+  const isActiveRef = useRef(isActive);
+  useEffect(() => { isActiveRef.current = isActive; }, [isActive]);
 
   /* Set initial active state based on route */
   useEffect(() => {
@@ -125,8 +128,8 @@ export default function GlassNav() {
       const el = document.getElementById(id);
       if (!el) return null;
       const o = new IntersectionObserver(
-        ([e]) => { if (e.isIntersecting) setActive(i); },
-        { threshold: 0.45 }
+        ([e]) => { if (e.isIntersecting && !isActiveRef.current) setActive(i); },
+        { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
       );
       o.observe(el);
       return o;
@@ -147,17 +150,14 @@ export default function GlassNav() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } else {
-      // Different page, perform Next.js navigation
+      // Different page, perform animated transition navigation
       // If it's not the top of the target page, append the hash
       const isTopSection = id === 'hero' || id === 'our-founder';
-      router.push(isTopSection ? path : `${path}#${id}`);
+      startTransition(isTopSection ? path : `${path}#${id}`);
     }
   };
 
-  const handleGetStarted = () => {
-    setMenuOpen(false);
-    router.push('/#contact');
-  };
+
 
   /* ── render ── */
   return (
@@ -165,7 +165,7 @@ export default function GlassNav() {
       <img
         src="/logoo.jpeg"
         alt="Viruthi Logo"
-        onClick={() => router.push('/')}
+        onClick={() => startTransition('/')}
         style={{
           position: 'fixed',
           top: '20px',
@@ -286,39 +286,7 @@ export default function GlassNav() {
                 );
               })}
 
-              {/* ── GET STARTED BUTTON ── */}
-              <button
-                onClick={handleGetStarted}
-                style={{
-                  position:      'relative',
-                  zIndex:        2,
-                  fontFamily:    'var(--font-satoshi)',
-                  fontSize:      '12.5px',
-                  fontWeight:    600,
-                  letterSpacing: '0.02em',
-                  color:         '#ffffff',
-                  background:    '#000000',
-                  border:        'none',
-                  padding:       '12px 24px',
-                  borderRadius:  '999px',
-                  cursor:        'none',
-                  whiteSpace:    'nowrap',
-                  lineHeight:    1,
-                  marginLeft:    '16px',
-                  boxShadow:     '0 4px 14px rgba(0,0,0,0.15)',
-                  transition:    'box-shadow 0.3s ease, transform 0.2s ease',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(0,0,0,0.25)';
-                  (e.currentTarget as HTMLElement).style.transform = 'scale(1.05)';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 14px rgba(0,0,0,0.15)';
-                  (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
-                }}
-              >
-                Get Started
-              </button>
+
             </div>
           </div>
         )}
@@ -497,41 +465,7 @@ export default function GlassNav() {
                       </motion.button>
                     ))}
 
-                    <motion.button
-                      initial={{ opacity: 0, x: -6  }}
-                      animate={{ opacity: 1, x: 0   }}
-                      transition={{ duration: 0.22, delay: NAV_ITEMS.length * 0.045, ease: EASE }}
-                      onClick={handleGetStarted}
-                      style={{
-                        display:       'block',
-                        width:         '100%',
-                        fontFamily:    'var(--font-satoshi)',
-                        fontSize:      '14px',
-                        fontWeight:    600,
-                        letterSpacing: '0.02em',
-                        color:         '#ffffff',
-                        background:    '#000000',
-                        border:        'none',
-                        borderRadius:  '12px',
-                        padding:       '14px 18px',
-                        textAlign:     'center',
-                        cursor:        'none',
-                        lineHeight:    1,
-                        marginTop:     '8px',
-                        boxShadow:     '0 4px 14px rgba(0,0,0,0.15)',
-                        transition:    'transform 0.2s ease, box-shadow 0.2s ease',
-                      }}
-                      onMouseEnter={e => {
-                        (e.currentTarget as HTMLElement).style.transform = 'scale(1.02)';
-                        (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(0,0,0,0.25)';
-                      }}
-                      onMouseLeave={e => {
-                        (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
-                        (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 14px rgba(0,0,0,0.15)';
-                      }}
-                    >
-                      Get Started
-                    </motion.button>
+
                   </div>
                 </motion.div>
               )}

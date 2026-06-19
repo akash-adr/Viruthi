@@ -69,7 +69,7 @@ export default function CounsellorIntro() {
                 textTransform: 'uppercase',
               }}
             >
-              CHAPTER 02 / ORIGINS
+              ORIGINS
             </motion.span>
 
             <motion.h2
@@ -80,6 +80,7 @@ export default function CounsellorIntro() {
               style={{
                 fontSize: 'clamp(48px, 6vw, 80px)',
                 fontWeight: 600,
+                fontStyle: 'italic',
                 letterSpacing: '-0.02em',
                 color: '#0D0D0D',
                 margin: 0,
@@ -112,14 +113,14 @@ export default function CounsellorIntro() {
               style={{
                 fontSize: 'clamp(28px, 3vw, 36px)',
                 fontWeight: 400,
+                fontStyle: 'italic',
                 color: '#0D0D0D',
                 margin: 0,
                 letterSpacing: '0.01em',
                 lineHeight: 1.3,
-                textTransform: 'uppercase',
               }}
             >
-              Meet Shen
+              meet shen
             </motion.h3>
           </div>
         </div>
@@ -170,10 +171,10 @@ export default function CounsellorIntro() {
             }}
           >
             {[
-              "I am a relationship therapist, researcher, and the founder of the Viruthi Centre for Flourishing Families. For the past seven years, I have worked with thousands of individuals and couples across 20 countries — helping them heal emotional wounds, rebuild trust, and create deeply fulfilling relationships.",
-              "My work focuses on understanding the emotional patterns that silently shape relationships — the conflicts, disconnection, and pain that couples often struggle to express. I am trained in Emotionally Focused Couple Therapy interventions and specialise in relationship distress, trauma, and emotional healing. I am also a Certified Clinical Trauma Professional (CCTP-1) and a Sex Therapy Informed Professional (CSTIP).",
-              "Academically, I hold a Master's degree in Medical and Psychiatric Social Work from the Madras School of Social Work, and I am UGC JRF/NET qualified. I am currently pursuing my doctoral research at CHRIST University, where my work explores emotional bonds and marital flourishing in intimate relationships. I have also contributed book chapters on emotional wellbeing, intergenerational bonding, and collective flourishing in India — published by Springer Nature.",
-              "Before entering the field of relationship therapy, in my previous avatar, I worked as a Senior Information Security Engineer at Infosys. I chose to leave the corporate world to follow a deeper calling — helping people build healthier relationships and stronger families."
+              "I am a relationship therapist, researcher, and founder of Viruthi Centre for Flourishing Families. Over the past seven years, I have worked with thousands of individuals and couples across 20 countries, helping them heal emotional wounds, rebuild trust, and create deeply fulfilling relationships.",
+              "My work focuses on understanding the emotional patterns that silently shape relationships—the conflicts, disconnection, and pain that couples often struggle to articulate. I am trained in Emotionally Focused Couple Therapy (EFT) interventions and specialize in relationship distress, trauma, and emotional healing. I am also a Certified Clinical Trauma Professional (CCTP-I) and a Certified Sex Therapy Informed Professional (CSTIP).",
+              "Academically, I hold a Master's degree in Medical and Psychiatric Social Work from the Madras School of Social Work and am UGC NET-JRF qualified. I am currently pursuing my doctoral research at CHRIST University, where I explore emotional bonds and marital flourishing in intimate relationships. I have also contributed to book chapters on emotional well-being, intergenerational bonding, and collective flourishing in India, published by Springer Nature.",
+              "Before entering the field of relationship therapy, I worked as a Senior Information Security Engineer at Infosys. I chose to leave the corporate world to pursue a deeper calling—helping people build healthier relationships, stronger marriages, and flourishing families."
             ].map((text, i) => (
               <motion.p
                 key={i}
@@ -183,9 +184,9 @@ export default function CounsellorIntro() {
                 style={{
                   fontFamily: 'var(--font-satoshi)',
                   fontSize: 'clamp(14px, 1.2vw, 16px)',
-                  fontWeight: 300,
+                  fontWeight: 400,
                   lineHeight: 1.8,
-                  color: 'rgba(13,13,13,0.75)',
+                  color: '#0D0D0D',
                   margin: 0,
                   textAlign: 'justify',
                 }}

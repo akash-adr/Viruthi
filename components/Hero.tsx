@@ -40,6 +40,26 @@ export default function Hero() {
         overflow: 'hidden',
       }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          #hero-description {
+            display: none !important;
+          }
+          #hero-scroll {
+            display: none !important;
+          }
+          #hero-cta-wrapper {
+            bottom: 40px !important;
+            right: 50% !important;
+            transform: translateX(50%) !important;
+            align-items: center !important;
+            text-align: center !important;
+          }
+          #hero-tagline {
+            text-align: center !important;
+          }
+        }
+      `}</style>
       {/* ── CENTERED BLOCK: micro-label + VIRUTHI ── */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -234,6 +254,7 @@ export default function Hero() {
 
       {/* ── BOTTOM RIGHT: tagline + connect button ── */}
       <motion.div
+        id="hero-cta-wrapper"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 1.0, ease: EASE }}
@@ -249,6 +270,7 @@ export default function Hero() {
       >
         {/* Tagline */}
         <p
+          id="hero-tagline"
           style={{
             fontFamily: 'var(--font-satoshi)',
             fontSize: '16px', // Increased from 13px
@@ -268,6 +290,7 @@ export default function Hero() {
         {/* Connect button — pill with animated border + fill on hover */}
         <button
           id="hero-connect-btn"
+          onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
           onMouseEnter={() => setConnectHovered(true)}
           onMouseLeave={() => setConnectHovered(false)}
           style={{

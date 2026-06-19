@@ -1,9 +1,6 @@
 import CounsellorHero from "@/components/CounsellorHero";
-import CounsellorIntro from "@/components/CounsellorIntro";
 import CounsellorImpact from "@/components/CounsellorImpact";
-import CounsellorMission from "@/components/CounsellorMission";
-import CounsellorPhilosophy from "@/components/CounsellorPhilosophy";
-import CounsellorQuote from "@/components/CounsellorQuote";
+import CounsellorIntro from "@/components/CounsellorIntro";
 import CounsellorCTA from "@/components/CounsellorCTA";
 
 export default function OurFounderPage() {
@@ -12,9 +9,6 @@ export default function OurFounderPage() {
       <CounsellorHero />
       <CounsellorImpact />
       <CounsellorIntro />
-      <CounsellorMission />
-      <CounsellorPhilosophy />
-      <CounsellorQuote />
       <CounsellorCTA />
     </main>
   );

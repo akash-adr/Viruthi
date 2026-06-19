@@ -50,7 +50,7 @@ export default function CounsellorMission() {
       style={{
         width: '100%',
         minHeight: '100vh',
-        background: '#F7F5F2',
+        background: '#FFFFFF',
         padding: '120px 5vw',
         display: 'flex',
         flexDirection: 'column',
@@ -76,7 +76,7 @@ export default function CounsellorMission() {
               marginBottom: '16px',
             }}
           >
-            CHAPTER 03 / OPERATING VALUES
+            OPERATING VALUES
           </motion.span>
 
           <motion.h2

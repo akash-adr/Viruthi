@@ -37,7 +37,7 @@ export default function ComingSoon() {
 
   return (
     <section
-      id="coming-soon"
+      id="services"
       ref={sectionRef}
       style={{
         position: 'relative',

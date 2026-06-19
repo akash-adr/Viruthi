@@ -27,7 +27,7 @@ export default function CounsellorQuote() {
       style={{
         width: '100%',
         padding: '160px 5vw',
-        background: '#F7F5F2',
+        background: '#FFFFFF',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

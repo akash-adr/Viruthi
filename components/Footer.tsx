@@ -75,7 +75,7 @@ export default function Footer() {
                 letterSpacing: '0.05em',
               }}
             >
-              Viruthi
+              viruthi
             </span>
           </div>
 
@@ -92,6 +92,62 @@ export default function Footer() {
           >
             A centre for flourishing families — emotional, relational, and legal care, woven into one practice.
           </p>
+
+          {/* Newsletter Section */}
+          <div style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-satoshi)',
+                fontSize: '11px',
+                fontWeight: 500,
+                letterSpacing: '0.2em',
+                color: 'rgba(255,255,255,0.4)',
+                textTransform: 'uppercase',
+              }}
+            >
+              Subscribe to our Newsletter
+            </span>
+            <form style={{ display: 'flex', gap: '8px', maxWidth: '380px' }} onSubmit={(e) => e.preventDefault()}>
+              <input 
+                type="email" 
+                placeholder="Your email address" 
+                required 
+                style={{ 
+                  flex: 1, 
+                  padding: '12px 16px', 
+                  background: 'rgba(255,255,255,0.05)', 
+                  border: '1px solid rgba(255,255,255,0.1)', 
+                  borderRadius: '8px', 
+                  color: '#ffffff', 
+                  fontFamily: 'var(--font-satoshi)', 
+                  fontSize: '14px', 
+                  outline: 'none',
+                  transition: 'border-color 0.3s ease'
+                }} 
+                onFocus={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'}
+                onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
+              />
+              <button 
+                type="submit" 
+                style={{ 
+                  padding: '12px 24px', 
+                  background: '#ffffff', 
+                  color: '#000000', 
+                  border: 'none', 
+                  borderRadius: '8px', 
+                  fontFamily: 'var(--font-satoshi)', 
+                  fontSize: '13px', 
+                  fontWeight: 600, 
+                  cursor: 'pointer', 
+                  transition: 'all 0.3s ease' 
+                }} 
+                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.8)'; }} 
+                onMouseLeave={e => { e.currentTarget.style.background = '#ffffff'; }}
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
         </div>
 
         {/* ── CENTER: QUICK LINKS ── */}
@@ -278,7 +334,7 @@ export default function Footer() {
             </span>
             
             <Link
-              href="/#contact"
+              href="/#services"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -332,6 +388,7 @@ export default function Footer() {
           }}
         >
           <span
+            suppressHydrationWarning
             style={{
               fontFamily: 'var(--font-satoshi)',
               fontSize: '11px',

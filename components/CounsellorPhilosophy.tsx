@@ -91,7 +91,7 @@ export default function CounsellorPhilosophy() {
               marginBottom: '16px',
             }}
           >
-            CHAPTER IV
+            PHILOSOPHY
           </span>
 
           <h2
@@ -194,7 +194,7 @@ export default function CounsellorPhilosophy() {
               marginBottom: '16px',
             }}
           >
-            CHAPTER V
+            PROCESS
           </span>
 
           <h2
