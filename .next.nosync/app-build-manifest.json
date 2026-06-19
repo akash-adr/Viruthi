@@ -1,41 +1,22 @@
 {
   "pages": {
-    "/_not-found/page": [
-      "static/chunks/webpack-6034b6c86081037d.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-4f5b424f20efdcae.js",
-      "static/chunks/main-app-29098aca36e1efb9.js",
-      "static/chunks/app/_not-found/page-221ef7203edcd7a2.js"
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
     ],
     "/layout": [
-      "static/chunks/webpack-6034b6c86081037d.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-4f5b424f20efdcae.js",
-      "static/chunks/main-app-29098aca36e1efb9.js",
-      "static/css/54336eef93370a78.css",
-      "static/chunks/159-b42d0afa989ed75c.js",
-      "static/chunks/692-46ebdd77537a0d35.js",
-      "static/chunks/app/layout-a920afce9d901e44.js"
-    ],
-    "/page": [
-      "static/chunks/webpack-6034b6c86081037d.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-4f5b424f20efdcae.js",
-      "static/chunks/main-app-29098aca36e1efb9.js",
-      "static/css/18fc602539d86262.css",
-      "static/chunks/159-b42d0afa989ed75c.js",
-      "static/chunks/935-ff96850fd2d51390.js",
-      "static/chunks/app/page-14faaca003b3a6e7.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ],
     "/our-founder/page": [
-      "static/chunks/webpack-6034b6c86081037d.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-4f5b424f20efdcae.js",
-      "static/chunks/main-app-29098aca36e1efb9.js",
-      "static/css/3f3248d04aa4509a.css",
-      "static/chunks/159-b42d0afa989ed75c.js",
-      "static/chunks/935-ff96850fd2d51390.js",
-      "static/chunks/app/our-founder/page-0b3eca64c8ca2628.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/our-founder/page.css",
+      "static/chunks/app/our-founder/page.js"
     ]
   }
 }
