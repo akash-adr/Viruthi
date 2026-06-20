@@ -22,9 +22,12 @@ export default function ContactForm() {
   });
 
   const handleNext = () => {
+    if (step === 1 && (!formData.firstName.trim() || !formData.email.trim())) return;
     if (step < 3) setStep(step + 1);
     else setStep(4); // 4 is Success state
   };
+
+  const isNextDisabled = step === 1 && (!formData.firstName.trim() || !formData.email.trim());
 
   const handleBack = () => {
     if (step > 1) setStep(step - 1);
@@ -449,10 +452,17 @@ export default function ContactForm() {
           gap: 12px;
           transition: all 0.4s ease;
         }
-        .btn-next:hover {
+        .btn-next:hover:not(:disabled) {
           background: #222222;
           box-shadow: 0 8px 24px rgba(0,0,0,0.15);
           transform: translateY(-2px);
+        }
+        .btn-next:disabled {
+          background: #E5E5E5;
+          color: #A3A3A3;
+          cursor: not-allowed;
+          box-shadow: none;
+          transform: none;
         }
       `}} />
 
@@ -508,7 +518,7 @@ export default function ContactForm() {
                 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px' }}>
                   <div className="input-group">
-                    <label className="input-label">First Name</label>
+                    <label className="input-label">First Name *</label>
                     <input 
                       type="text" 
                       className="form-input" 
@@ -528,7 +538,7 @@ export default function ContactForm() {
                     />
                   </div>
                   <div className="input-group">
-                    <label className="input-label">Email</label>
+                    <label className="input-label">Email *</label>
                     <input 
                       type="email" 
                       className="form-input" 
@@ -651,7 +661,7 @@ export default function ContactForm() {
             </div>
             
             <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-              <button className="btn-next" onClick={handleNext}>
+              <button className="btn-next" onClick={handleNext} disabled={isNextDisabled}>
                 {step === 3 ? 'Send Message' : 'Next Step'}
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>

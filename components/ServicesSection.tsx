@@ -246,12 +246,30 @@ export default function ServicesSection() {
           </button>
         </motion.div>
 
-        {/* CARD 02 */}
+        {/* CARD 02 (COMING SOON) */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
+          className="service-card coming-soon"
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '600px' }}
+        >
+          <div style={{ width: '64px', height: '64px', borderRadius: '50%', border: '1px dashed rgba(13,13,13,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '32px' }}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(13,13,13,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          </div>
+          <h3 className={playfair.className} style={{ fontSize: '32px', color: '#0D0D0D', marginBottom: '16px' }}>Coming Soon</h3>
+          <p style={{ fontFamily: 'var(--font-satoshi)', fontSize: '16px', color: 'rgba(13,13,13,0.5)', maxWidth: '240px' }}>
+            A new exclusive service is currently under development.
+          </p>
+        </motion.div>
+
+        {/* CARD 03 */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
           className="service-card"
         >
           <div className="card-top-bar">
@@ -292,24 +310,6 @@ export default function ServicesSection() {
             <span>Inquire With Legal Counsel</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
-        </motion.div>
-
-        {/* CARD 03 (COMING SOON) */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
-          className="service-card coming-soon"
-          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '600px' }}
-        >
-          <div style={{ width: '64px', height: '64px', borderRadius: '50%', border: '1px dashed rgba(13,13,13,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '32px' }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(13,13,13,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-          </div>
-          <h3 className={playfair.className} style={{ fontSize: '32px', color: '#0D0D0D', marginBottom: '16px' }}>Coming Soon</h3>
-          <p style={{ fontFamily: 'var(--font-satoshi)', fontSize: '16px', color: 'rgba(13,13,13,0.5)', maxWidth: '240px' }}>
-            A new exclusive service is currently under development.
-          </p>
         </motion.div>
 
       </div>
