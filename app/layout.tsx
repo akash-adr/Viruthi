@@ -4,12 +4,12 @@ import LenisProvider from "@/components/LenisProvider";
 import CustomCursor from "@/components/CustomCursor";
 
 export const metadata: Metadata = {
-  title: "Viruthi — Centre for Flourishing Families",
+  title: "Viruthi",
   description:
     "Viruthi is a centre dedicated to nurturing relationships — patiently, attentively, with care. Estd. with intent.",
   keywords: ["Viruthi", "family", "relationships", "flourishing", "centre"],
   openGraph: {
-    title: "Viruthi — Centre for Flourishing Families",
+    title: "Viruthi",
     description: "Where relationships are tended like gardens.",
     type: "website",
   },

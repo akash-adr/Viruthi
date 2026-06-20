@@ -68,9 +68,16 @@ export default function GlassNav() {
   const isActiveRef = useRef(isActive);
   useEffect(() => { isActiveRef.current = isActive; }, [isActive]);
 
-  /* Set initial active state based on route */
+  /* Set initial active state based on route and hash */
   useEffect(() => {
-    const idx = NAV_ITEMS.findIndex(item => item.path === pathname);
+    const hash = window.location.hash.replace('#', '');
+    let idx = -1;
+    if (hash) {
+      idx = NAV_ITEMS.findIndex(item => item.path === pathname && item.id === hash);
+    }
+    if (idx === -1) {
+      idx = NAV_ITEMS.findIndex(item => item.path === pathname);
+    }
     if (idx !== -1) setActive(idx);
   }, [pathname]);
 
@@ -93,8 +100,15 @@ export default function GlassNav() {
     
     // Slight delay to ensure layout is done before first measure
     const t = setTimeout(() => {
-      const initialIdx = NAV_ITEMS.findIndex(item => item.path === pathname);
-      recalcPill(initialIdx !== -1 ? initialIdx : 0);
+      const hash = window.location.hash.replace('#', '');
+      let idx = -1;
+      if (hash) {
+        idx = NAV_ITEMS.findIndex(item => item.path === pathname && item.id === hash);
+      }
+      if (idx === -1) {
+        idx = NAV_ITEMS.findIndex(item => item.path === pathname);
+      }
+      recalcPill(idx !== -1 ? idx : 0);
     }, 80);
 
     return () => {
@@ -121,20 +135,63 @@ export default function GlassNav() {
 
   /* scroll → section tracking (only for elements on current page) */
   useEffect(() => {
-    const obs = NAV_ITEMS.map(({ id, path }, i) => {
-      // Don't track sections that don't exist on this route
-      if (path !== pathname) return null;
+    let ticking = false;
 
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const o = new IntersectionObserver(
-        ([e]) => { if (e.isIntersecting && !isActiveRef.current) setActive(i); },
-        { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
-      );
-      o.observe(el);
-      return o;
-    });
-    return () => obs.forEach(o => o?.disconnect());
+    const updateActiveSection = () => {
+      if (isActiveRef.current) return; // Don't track during page transition
+      
+      const viewportCenter = window.innerHeight / 2;
+      let closestIdx = -1;
+      let minDistance = Infinity;
+
+      NAV_ITEMS.forEach((item, i) => {
+        if (item.path !== pathname) return;
+        const el = document.getElementById(item.id);
+        if (!el) return;
+        
+        const rect = el.getBoundingClientRect();
+        
+        // Find distance from element center to viewport center
+        // Or if element is larger than viewport, check if viewport center is inside it
+        const elCenter = rect.top + rect.height / 2;
+        
+        // Check if the center of the screen is inside the element
+        const isCenterInside = rect.top <= viewportCenter && rect.bottom >= viewportCenter;
+        
+        if (isCenterInside) {
+          // If the viewport center is inside this element, it gets priority
+          minDistance = 0;
+          closestIdx = i;
+        } else {
+          const distance = Math.abs(viewportCenter - elCenter);
+          if (distance < minDistance && minDistance !== 0) {
+            minDistance = distance;
+            closestIdx = i;
+          }
+        }
+      });
+
+      if (closestIdx !== -1) {
+        setActive(prev => {
+          if (prev !== closestIdx) return closestIdx;
+          return prev;
+        });
+      }
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateActiveSection);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initial check
+    setTimeout(updateActiveSection, 200);
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [pathname]);
 
   const handleNav = (i: number, id: string, path: string) => {

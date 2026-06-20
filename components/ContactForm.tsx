@@ -168,7 +168,7 @@ export default function ContactForm() {
       </div>
 
       {/* --- FORM SECTION --- */}
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .contact-container {
           width: 100%;
           max-width: 1440px;
@@ -305,7 +305,7 @@ export default function ContactForm() {
         .form-subtitle {
           font-family: var(--font-satoshi);
           font-size: 18px;
-          fontWeight: 300;
+          font-weight: 300;
           color: rgba(13,13,13,0.6);
           margin-bottom: 64px;
         }
@@ -454,7 +454,7 @@ export default function ContactForm() {
           box-shadow: 0 8px 24px rgba(0,0,0,0.15);
           transform: translateY(-2px);
         }
-      `}</style>
+      `}} />
 
       <div className="contact-container">
         

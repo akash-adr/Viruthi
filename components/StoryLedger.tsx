@@ -192,35 +192,7 @@ export default function StoryLedger() {
           background: #FAFAFA;
         }
 
-        .covenant-form {
-          border: 1px solid rgba(13,13,13,0.1);
-          border-radius: 12px;
-          padding: 32px;
-          margin-top: 40px;
-          background: #FAFAFA;
-        }
-        .form-input {
-          width: 100%;
-          padding: 16px;
-          background: transparent;
-          border: 1px solid rgba(13,13,13,0.15);
-          border-radius: 8px;
-          font-family: var(--font-satoshi);
-          font-size: 14px;
-          margin-bottom: 16px;
-          outline: none;
-        }
-        .form-btn {
-          width: 100%;
-          padding: 16px;
-          background: #0D0D0D;
-          color: #FFFFFF;
-          border: none;
-          border-radius: 8px;
-          font-weight: 600;
-          letter-spacing: 0.05em;
-          cursor: pointer;
-        }
+
       `}</style>
 
       <div className="ledger-container">
@@ -231,7 +203,7 @@ export default function StoryLedger() {
             The Active Story Ledger
           </span>
           <h2 style={{ fontSize: 'clamp(32px, 3vw, 42px)', fontWeight: 400, color: '#0D0D0D', marginBottom: '16px', lineHeight: 1.1, letterSpacing: '-0.02em' }}>
-            An Inescapable <span className={playfair.className}>Truth</span>
+            Viruthi&apos;s <span className={playfair.className}>story</span>
           </h2>
           <p style={{ fontSize: '14px', color: 'rgba(13,13,13,0.6)', lineHeight: 1.6, marginBottom: '48px' }}>
             An experiential chronicle detailing self-development, friends&apos; divorce, psychiatric social practice, and the eventual parent-centered paradigm shift.
@@ -467,21 +439,18 @@ export default function StoryLedger() {
                     Couples enter marriage with very little preparation. There is no manual, no structured education about relationships. People often enter with assumptions and expectations, and when reality feels different, they struggle silently. Many couples don&apos;t flourish in marriage. They simply endure it.
                   </p>
                   
-                  <div className="covenant-form">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px', fontSize: '10px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.5)' }}>
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                        Draft the Covenant
-                      </span>
-                      <span>Interactive Instrument</span>
-                    </div>
-                    
-                    <div style={{ display: 'flex', gap: '16px' }}>
-                      <input type="text" placeholder="Your Name *" className="form-input" />
-                      <input type="text" placeholder="Partner Name (Optional)" className="form-input" />
-                    </div>
-                    <input type="text" placeholder="Your Commitment Vow (e.g., 10 mins quiet dialogue)" className="form-input" />
-                    <button className="form-btn">COMMIT & SEAL INTENTION</button>
+                  <p className="body-text">
+                    This profound realisation became the catalyst that shaped my life&apos;s work. It shifted my focus from merely observing the struggles of individuals to actively creating frameworks that help couples navigate the complexities of long-term partnership.
+                  </p>
+                  
+                  <p className="body-text">
+                    At Viruthi, we believe that relationships shouldn&apos;t be a game of chance or a test of endurance. Through structured learning, open dialogue, and a deep understanding of psychological dynamics, couples can move beyond survival mode. They can build a strong, resilient foundation that not only withstands the trials of life but allows both individuals and their children to truly flourish.
+                  </p>
+
+                  <div style={{ borderLeft: '3px solid #8B2C2C', paddingLeft: '24px', margin: '40px 0 20px 0' }}>
+                    <h3 className={playfair.className} style={{ fontSize: 'clamp(20px, 2vw, 30px)', fontWeight: 400, color: '#8B2C2C', margin: 0, lineHeight: 1.3 }}>
+                      &quot;We guide couples from enduring their marriage to actively flourishing in it.&quot;
+                    </h3>
                   </div>
                 </div>
               )}
