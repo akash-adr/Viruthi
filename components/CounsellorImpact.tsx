@@ -76,7 +76,7 @@ export default function CounsellorImpact() {
               fontSize: '10px',
               fontWeight: 400,
               letterSpacing: '0.3em',
-              color: 'rgba(13,13,13,0.4)',
+              color: 'rgba(13,13,13,0.85)',
               textTransform: 'uppercase',
             }}
           >
@@ -123,7 +123,7 @@ export default function CounsellorImpact() {
                 fontStyle: 'italic',
                 lineHeight: 1.6,
                 letterSpacing: '0.02em',
-                color: 'rgba(13,13,13,0.6)',
+                color: 'rgba(13,13,13,0.85)',
                 margin: 0,
                 maxWidth: '420px',
                 textAlign: 'right',
@@ -189,7 +189,7 @@ export default function CounsellorImpact() {
                   fontFamily: 'var(--font-satoshi)',
                   fontSize: 'clamp(40px, 4vw, 64px)',
                   fontWeight: 300,
-                  color: 'rgba(13,13,13,0.4)',
+                  color: 'rgba(13,13,13,0.85)',
                   marginLeft: '4px',
                 }}
               >
@@ -205,7 +205,7 @@ export default function CounsellorImpact() {
                   fontSize: '11px',
                   fontWeight: 400,
                   letterSpacing: '0.25em',
-                  color: 'rgba(13,13,13,0.5)',
+                  color: 'rgba(13,13,13,0.85)',
                   textTransform: 'uppercase',
                 }}
               >
@@ -245,7 +245,7 @@ export default function CounsellorImpact() {
                   fontFamily: 'var(--font-satoshi)',
                   fontSize: 'clamp(40px, 4vw, 64px)',
                   fontWeight: 300,
-                  color: 'rgba(13,13,13,0.4)',
+                  color: 'rgba(13,13,13,0.85)',
                   marginLeft: '4px',
                 }}
               >
@@ -261,7 +261,7 @@ export default function CounsellorImpact() {
                   fontSize: '11px',
                   fontWeight: 400,
                   letterSpacing: '0.25em',
-                  color: 'rgba(13,13,13,0.5)',
+                  color: 'rgba(13,13,13,0.85)',
                   textTransform: 'uppercase',
                 }}
               >
@@ -301,7 +301,7 @@ export default function CounsellorImpact() {
                   fontFamily: 'var(--font-satoshi)',
                   fontSize: 'clamp(40px, 4vw, 64px)',
                   fontWeight: 300,
-                  color: 'rgba(13,13,13,0.4)',
+                  color: 'rgba(13,13,13,0.85)',
                   marginLeft: '4px',
                 }}
               >
@@ -317,7 +317,7 @@ export default function CounsellorImpact() {
                   fontSize: '11px',
                   fontWeight: 400,
                   letterSpacing: '0.25em',
-                  color: 'rgba(13,13,13,0.5)',
+                  color: 'rgba(13,13,13,0.85)',
                   textTransform: 'uppercase',
                 }}
               >

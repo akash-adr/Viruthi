@@ -86,7 +86,7 @@ export default function CounsellorPhilosophy() {
               fontSize: '10px',
               fontWeight: 400,
               letterSpacing: '0.3em',
-              color: 'rgba(13,13,13,0.4)',
+              color: 'rgba(13,13,13,0.85)',
               textTransform: 'uppercase',
               marginBottom: '16px',
             }}
@@ -127,10 +127,10 @@ export default function CounsellorPhilosophy() {
           <p
             style={{
               fontFamily: 'var(--font-satoshi)',
-              fontSize: '15px',
+              fontSize: '18px',
               fontWeight: 300,
               lineHeight: 1.8,
-              color: 'rgba(13,13,13,0.75)',
+              color: 'rgba(13,13,13,0.9)',
               margin: 0,
               maxWidth: '90%',
             }}
@@ -155,7 +155,7 @@ export default function CounsellorPhilosophy() {
               transition: 'border-color 0.2s ease, background 0.2s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(13,13,13,0.5)';
+              e.currentTarget.style.borderColor = 'rgba(13,13,13,0.85)';
               e.currentTarget.style.background = 'rgba(13,13,13,0.05)';
             }}
             onMouseLeave={(e) => {
@@ -189,7 +189,7 @@ export default function CounsellorPhilosophy() {
               fontSize: '10px',
               fontWeight: 400,
               letterSpacing: '0.3em',
-              color: 'rgba(13,13,13,0.4)',
+              color: 'rgba(13,13,13,0.85)',
               textTransform: 'uppercase',
               marginBottom: '16px',
             }}
@@ -230,10 +230,10 @@ export default function CounsellorPhilosophy() {
           <p
             style={{
               fontFamily: 'var(--font-satoshi)',
-              fontSize: '15px',
+              fontSize: '18px',
               fontWeight: 300,
               lineHeight: 1.8,
-              color: 'rgba(13,13,13,0.75)',
+              color: 'rgba(13,13,13,0.9)',
               margin: 0,
               maxWidth: '90%',
             }}
@@ -258,7 +258,7 @@ export default function CounsellorPhilosophy() {
               transition: 'border-color 0.2s ease, background 0.2s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(13,13,13,0.5)';
+              e.currentTarget.style.borderColor = 'rgba(13,13,13,0.85)';
               e.currentTarget.style.background = 'rgba(13,13,13,0.05)';
             }}
             onMouseLeave={(e) => {

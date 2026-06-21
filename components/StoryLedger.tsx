@@ -65,7 +65,7 @@ export default function StoryLedger() {
           font-family: var(--font-satoshi);
           font-size: 12px;
           font-weight: 600;
-          color: rgba(13,13,13,0.4);
+          color: rgba(13,13,13,0.85);
         }
         .tab-btn.active .tab-number {
           color: #0D0D0D;
@@ -75,7 +75,7 @@ export default function StoryLedger() {
           font-family: var(--font-satoshi);
           font-size: 16px;
           font-weight: 500;
-          color: rgba(13,13,13,0.6);
+          color: rgba(13,13,13,0.85);
           margin-bottom: 4px;
         }
         .tab-btn.active .tab-title {
@@ -87,10 +87,10 @@ export default function StoryLedger() {
           font-size: 11px;
           text-transform: uppercase;
           letter-spacing: 0.05em;
-          color: rgba(13,13,13,0.4);
+          color: rgba(13,13,13,0.85);
         }
         .tab-btn.active .tab-subtitle {
-          color: rgba(13,13,13,0.6);
+          color: rgba(13,13,13,0.85);
         }
 
         .content-panel {
@@ -122,7 +122,7 @@ export default function StoryLedger() {
           text-transform: uppercase;
           letter-spacing: 0.1em;
           font-weight: 600;
-          color: rgba(13,13,13,0.4);
+          color: rgba(13,13,13,0.85);
           display: flex;
           align-items: center;
           gap: 8px;
@@ -131,7 +131,7 @@ export default function StoryLedger() {
           font-family: var(--font-satoshi);
           font-size: 14px;
           font-weight: 400;
-          color: rgba(13,13,13,0.5);
+          color: rgba(13,13,13,0.85);
           font-style: italic;
         }
 
@@ -148,7 +148,7 @@ export default function StoryLedger() {
         .br { bottom: 16px; right: 16px; border-width: 0 1px 1px 0; }
 
         .body-text {
-          font-size: clamp(16px, 1.5vw, 18px);
+          font-size: clamp(18px, 2vw, 22px);
           line-height: 1.8;
           color: rgba(13,13,13,0.8);
           font-weight: 300;
@@ -199,13 +199,13 @@ export default function StoryLedger() {
         
         {/* LEFT NAV */}
         <div style={{ flex: '0 0 340px' }}>
-          <span style={{ fontSize: '10px', letterSpacing: '0.2em', fontWeight: 600, color: 'rgba(13,13,13,0.4)', textTransform: 'uppercase', marginBottom: '16px', display: 'block' }}>
+          <span style={{ fontSize: '10px', letterSpacing: '0.2em', fontWeight: 600, color: 'rgba(13,13,13,0.85)', textTransform: 'uppercase', marginBottom: '16px', display: 'block' }}>
             The Active Story Ledger
           </span>
           <h2 style={{ fontSize: 'clamp(32px, 3vw, 42px)', fontWeight: 400, color: '#0D0D0D', marginBottom: '16px', lineHeight: 1.1, letterSpacing: '-0.02em' }}>
             Viruthi&apos;s <span className={playfair.className}>story</span>
           </h2>
-          <p style={{ fontSize: '14px', color: 'rgba(13,13,13,0.6)', lineHeight: 1.6, marginBottom: '48px' }}>
+          <p style={{ fontSize: '20px', color: 'rgba(13,13,13,0.85)', lineHeight: 1.6, marginBottom: '48px' }}>
             An experiential chronicle detailing self-development, friends&apos; divorce, psychiatric social practice, and the eventual parent-centered paradigm shift.
           </p>
 
@@ -265,7 +265,7 @@ export default function StoryLedger() {
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0D0D0D" strokeWidth="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                     </div>
                     <div>
-                      <div style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.5)', marginBottom: '4px' }}>Continuous Horizon</div>
+                      <div style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(13,13,13,0.85)', marginBottom: '4px' }}>Continuous Horizon</div>
                       <div style={{ fontSize: '14px', color: '#0D0D0D' }}>Seven years of self-directed research & philosophical inquiry.</div>
                     </div>
                   </div>
@@ -297,22 +297,22 @@ export default function StoryLedger() {
                     <div className="grid-card">
                       <div style={{ position: 'absolute', top: 16, right: 16, fontSize: '10px', color: 'rgba(13,13,13,0.3)' }}>01</div>
                       <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Childline (ICCW)</div>
-                      <div style={{ fontSize: '12px', color: 'rgba(13,13,13,0.6)', lineHeight: 1.5 }}>Child protection & clinical field intervention</div>
+                      <div style={{ fontSize: '12px', color: 'rgba(13,13,13,0.85)', lineHeight: 1.5 }}>Child protection & clinical field intervention</div>
                     </div>
                     <div className="grid-card">
                       <div style={{ position: 'absolute', top: 16, right: 16, fontSize: '10px', color: 'rgba(13,13,13,0.3)' }}>02</div>
                       <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>I Love Mondays</div>
-                      <div style={{ fontSize: '12px', color: 'rgba(13,13,13,0.6)', lineHeight: 1.5 }}>Howard Gardner&apos;s multiple intelligences with preteens</div>
+                      <div style={{ fontSize: '12px', color: 'rgba(13,13,13,0.85)', lineHeight: 1.5 }}>Howard Gardner&apos;s multiple intelligences with preteens</div>
                     </div>
                     <div className="grid-card">
                       <div style={{ position: 'absolute', top: 16, right: 16, fontSize: '10px', color: 'rgba(13,13,13,0.3)' }}>03</div>
                       <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>ICMR Research</div>
-                      <div style={{ fontSize: '12px', color: 'rgba(13,13,13,0.6)', lineHeight: 1.5 }}>PUBG gaming addiction at peak epidemic</div>
+                      <div style={{ fontSize: '12px', color: 'rgba(13,13,13,0.85)', lineHeight: 1.5 }}>PUBG gaming addiction at peak epidemic</div>
                     </div>
                     <div className="grid-card">
                       <div style={{ position: 'absolute', top: 16, right: 16, fontSize: '10px', color: 'rgba(13,13,13,0.3)' }}>04</div>
                       <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>NIMHANS training</div>
-                      <div style={{ fontSize: '12px', color: 'rgba(13,13,13,0.6)', lineHeight: 1.5 }}>Premier psychiatric care residency & diagnostics</div>
+                      <div style={{ fontSize: '12px', color: 'rgba(13,13,13,0.85)', lineHeight: 1.5 }}>Premier psychiatric care residency & diagnostics</div>
                     </div>
                   </div>
                 </div>
@@ -349,13 +349,13 @@ export default function StoryLedger() {
                       }} />
                       <button 
                         onClick={() => setStatState('chaotic')}
-                        style={{ flex: 1, padding: '14px 0', textAlign: 'center', fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em', color: statState === 'chaotic' ? '#0D0D0D' : 'rgba(13,13,13,0.4)', background: 'none', border: 'none', cursor: 'pointer', zIndex: 1, transition: 'color 0.3s ease' }}
+                        style={{ flex: 1, padding: '14px 0', textAlign: 'center', fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em', color: statState === 'chaotic' ? '#0D0D0D' : 'rgba(13,13,13,0.85)', background: 'none', border: 'none', cursor: 'pointer', zIndex: 1, transition: 'color 0.3s ease' }}
                       >
                         CHAOTIC
                       </button>
                       <button 
                         onClick={() => setStatState('nurtured')}
-                        style={{ flex: 1, padding: '14px 0', textAlign: 'center', fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em', color: statState === 'nurtured' ? '#0D0D0D' : 'rgba(13,13,13,0.4)', background: 'none', border: 'none', cursor: 'pointer', zIndex: 1, transition: 'color 0.3s ease' }}
+                        style={{ flex: 1, padding: '14px 0', textAlign: 'center', fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em', color: statState === 'nurtured' ? '#0D0D0D' : 'rgba(13,13,13,0.85)', background: 'none', border: 'none', cursor: 'pointer', zIndex: 1, transition: 'color 0.3s ease' }}
                       >
                         NURTURED
                       </button>
@@ -372,7 +372,7 @@ export default function StoryLedger() {
                       justifyContent: 'space-between'
                     }}>
                       <div style={{ textAlign: 'center', flex: 1 }}>
-                        <div style={{ fontSize: '10px', color: 'rgba(13,13,13,0.4)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Parent Stat</div>
+                        <div style={{ fontSize: '10px', color: 'rgba(13,13,13,0.85)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Parent Stat</div>
                         <AnimatePresence mode="wait">
                           <motion.div
                             key={statState}
@@ -408,7 +408,7 @@ export default function StoryLedger() {
                       </div>
 
                       <div style={{ textAlign: 'center', flex: 1 }}>
-                        <div style={{ fontSize: '10px', color: 'rgba(13,13,13,0.4)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Child Stat</div>
+                        <div style={{ fontSize: '10px', color: 'rgba(13,13,13,0.85)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Child Stat</div>
                         <AnimatePresence mode="wait">
                           <motion.div
                             key={statState}
@@ -460,7 +460,7 @@ export default function StoryLedger() {
 
           {/* Bottom Footer of Content Panel */}
           <div style={{ position: 'absolute', bottom: '48px', left: '48px', right: '48px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(13,13,13,0.05)', paddingTop: '24px' }}>
-            <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(13,13,13,0.4)', fontWeight: 600 }}>Active Parchment Encoder</div>
+            <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(13,13,13,0.85)', fontWeight: 600 }}>Active Parchment Encoder</div>
             <button 
               onClick={() => setActiveTab(prev => prev < 5 ? prev + 1 : 1)}
               style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#0D0D0D', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}

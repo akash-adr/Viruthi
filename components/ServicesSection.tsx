@@ -28,7 +28,7 @@ export default function ServicesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
-          style={{ fontFamily: 'var(--font-satoshi)', fontSize: 'clamp(18px, 2vw, 24px)', fontWeight: 300, color: 'rgba(13,13,13,0.6)', maxWidth: '800px', margin: '0 auto', lineHeight: 1.5 }}
+          style={{ fontFamily: 'var(--font-satoshi)', fontSize: 'clamp(18px, 2vw, 24px)', fontWeight: 300, color: 'rgba(13,13,13,0.85)', maxWidth: '800px', margin: '0 auto', lineHeight: 1.5 }}
         >
           Two practices, one philosophy. Each begins with listening — to what is said, and what cannot yet be said.
         </motion.p>
@@ -89,7 +89,7 @@ export default function ServicesSection() {
           font-weight: 600;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: rgba(13,13,13,0.4);
+          color: rgba(13,13,13,0.85);
         }
         .arrow-circle {
           width: 40px;
@@ -117,8 +117,8 @@ export default function ServicesSection() {
         }
         .service-desc {
           font-family: var(--font-satoshi);
-          font-size: 16px;
-          color: rgba(13,13,13,0.6);
+          font-size: 18px;
+          color: rgba(13,13,13,0.85);
           line-height: 1.6;
           margin-bottom: 48px;
           font-weight: 300;
@@ -130,7 +130,7 @@ export default function ServicesSection() {
           font-weight: 600;
           letter-spacing: 0.15em;
           text-transform: uppercase;
-          color: rgba(13,13,13,0.4);
+          color: rgba(13,13,13,0.85);
           margin-bottom: 24px;
         }
 
@@ -259,7 +259,7 @@ export default function ServicesSection() {
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(13,13,13,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
           </div>
           <h3 className={playfair.className} style={{ fontSize: '32px', color: '#0D0D0D', marginBottom: '16px' }}>Coming Soon</h3>
-          <p style={{ fontFamily: 'var(--font-satoshi)', fontSize: '16px', color: 'rgba(13,13,13,0.5)', maxWidth: '240px' }}>
+          <p style={{ fontFamily: 'var(--font-satoshi)', fontSize: '20px', color: 'rgba(13,13,13,0.85)', maxWidth: '240px' }}>
             A new exclusive service is currently under development.
           </p>
         </motion.div>

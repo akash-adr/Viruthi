@@ -70,7 +70,7 @@ export default function CounsellorMission() {
               fontSize: '10px',
               fontWeight: 400,
               letterSpacing: '0.3em',
-              color: 'rgba(13,13,13,0.4)',
+              color: 'rgba(13,13,13,0.85)',
               textTransform: 'uppercase',
               display: 'block',
               marginBottom: '16px',
@@ -175,7 +175,7 @@ export default function CounsellorMission() {
                     fontFamily: 'var(--font-satoshi)',
                     fontSize: '11px',
                     fontWeight: 500,
-                    color: 'rgba(13,13,13,0.5)',
+                    color: 'rgba(13,13,13,0.85)',
                   }}
                 >
                   {card.num}
@@ -212,10 +212,10 @@ export default function CounsellorMission() {
               <p
                 style={{
                   fontFamily: 'var(--font-satoshi)',
-                  fontSize: '13px',
+                  fontSize: '16px',
                   fontWeight: 400,
                   lineHeight: 1.8,
-                  color: 'rgba(13,13,13,0.65)',
+                  color: 'rgba(13,13,13,0.85)',
                   margin: 0,
                   marginTop: 'auto',
                 }}
@@ -267,7 +267,7 @@ export default function CounsellorMission() {
               transition: 'border-color 0.2s ease, background 0.2s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(13,13,13,0.6)';
+              e.currentTarget.style.borderColor = 'rgba(13,13,13,0.85)';
               e.currentTarget.style.background = 'rgba(13,13,13,0.05)';
             }}
             onMouseLeave={(e) => {

@@ -134,7 +134,7 @@ export default function ComingSoon() {
           fontSize: '15px',
           fontWeight: 300,
           lineHeight: 1.8,
-          color: 'rgba(255,255,255,0.4)',
+          color: 'rgba(255,255,255,0.85)',
           maxWidth: '300px',
           marginTop: '48px',
           margin: '48px 0 0 0',

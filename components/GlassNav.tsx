@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useTransition } from '@/context/TransitionContext';
@@ -30,7 +30,7 @@ const BORDER_SHELL: React.CSSProperties = {
   background:   `linear-gradient(
     175deg,
     rgba(255,255,255,0.8) 0%,
-    rgba(255,255,255,0.4) 100%
+    rgba(255,255,255,0.85) 100%
   )`,
   boxShadow: [
     'inset 0 0 0 1px rgba(0,0,0,0.04)',
@@ -53,14 +53,19 @@ const GLASS_SURFACE: React.CSSProperties = {
 ───────────────────────────────────────────────────────────────────────────── */
 
 export default function GlassNav() {
-  const [active,   setActive]   = useState(0);
-  const [mounted,  setMounted]  = useState(false);
-  const [pill,     setPill]     = useState({ left: 0, width: 0 });
-  const [isMobile, setIsMobile] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [active,             setActive]             = useState(0);
+  const [mounted,            setMounted]            = useState(false);
+  const [pill,               setPill]               = useState({ left: 0, width: 0 });
+  const [isMobile,           setIsMobile]           = useState(false);
+  const [menuOpen,           setMenuOpen]           = useState(false);
+  // true  → user is inside a full-screen scroll sequence; hide nav completely
+  const [inScrollSeq,        setInScrollSeq]        = useState(false);
+  // true  → user stopped scrolling for >2 s; slide nav off-screen
+  const [idleHidden,         setIdleHidden]         = useState(false);
 
   const navRef   = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const pathname = usePathname();
   const { isActive, startTransition } = useTransition();
@@ -133,14 +138,58 @@ export default function GlassNav() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, mounted, isMobile]);
 
-  /* scroll → section tracking (only for elements on current page) */
+  /* Scroll-sequence detection + idle-hide logic */
+  const resetIdleTimer = useCallback(() => {
+    // Immediately show nav when user scrolls
+    setIdleHidden(false);
+    // Clear any existing timer
+    if (idleTimer.current) clearTimeout(idleTimer.current);
+    // Hide again after 2 s of no scrolling
+    idleTimer.current = setTimeout(() => {
+      setIdleHidden(true);
+    }, 2000);
+  }, []);
+
+  /* scroll -> section tracking + scroll-sequence + idle detection */
   useEffect(() => {
     let ticking = false;
 
     const updateActiveSection = () => {
-      if (isActiveRef.current) return; // Don't track during page transition
-      
-      const viewportCenter = window.innerHeight / 2;
+      if (isActiveRef.current) return;
+
+      const scrollY        = window.scrollY;
+      const viewportH      = window.innerHeight;
+      const viewportCenter = viewportH / 2;
+
+      // 1. Detect if inside a scroll-sequence section
+      // "intro" section (#intro) and the StoryScroller section (#story-scroller)
+      // We detect by checking if the sticky canvas panels are the element covering the viewport center.
+      const introEl = document.getElementById('intro');
+      const storyEl = document.getElementById('story-scroller');
+
+      let insideSeq = false;
+      for (const el of [introEl, storyEl]) {
+        if (!el) continue;
+        const r = el.getBoundingClientRect();
+        // Element's sticky viewport is active: its top is at or above 0
+        // and its bottom is still below the viewport
+        if (r.top <= 0 && r.bottom >= viewportH) {
+          insideSeq = true;
+          break;
+        }
+      }
+      setInScrollSeq(insideSeq);
+
+      // 2. Idle-hide: only when NOT inside a scroll sequence
+      if (!insideSeq) {
+        resetIdleTimer();
+      } else {
+        // Clear idle timer when inside sequence (nav is hidden anyway)
+        if (idleTimer.current) clearTimeout(idleTimer.current);
+        setIdleHidden(false);
+      }
+
+      // 3. Active section tracking
       let closestIdx = -1;
       let minDistance = Infinity;
 
@@ -148,18 +197,12 @@ export default function GlassNav() {
         if (item.path !== pathname) return;
         const el = document.getElementById(item.id);
         if (!el) return;
-        
+
         const rect = el.getBoundingClientRect();
-        
-        // Find distance from element center to viewport center
-        // Or if element is larger than viewport, check if viewport center is inside it
         const elCenter = rect.top + rect.height / 2;
-        
-        // Check if the center of the screen is inside the element
         const isCenterInside = rect.top <= viewportCenter && rect.bottom >= viewportCenter;
-        
+
         if (isCenterInside) {
-          // If the viewport center is inside this element, it gets priority
           minDistance = 0;
           closestIdx = i;
         } else {
@@ -172,11 +215,11 @@ export default function GlassNav() {
       });
 
       if (closestIdx !== -1) {
-        setActive(prev => {
-          if (prev !== closestIdx) return closestIdx;
-          return prev;
-        });
+        setActive(prev => (prev !== closestIdx ? closestIdx : prev));
       }
+
+      // Suppress unused warning
+      void scrollY;
       ticking = false;
     };
 
@@ -188,11 +231,13 @@ export default function GlassNav() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // Initial check
     setTimeout(updateActiveSection, 200);
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [pathname]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (idleTimer.current) clearTimeout(idleTimer.current);
+    };
+  }, [pathname, resetIdleTimer]);
 
   const handleNav = (i: number, id: string, path: string) => {
     setActive(i);
@@ -216,13 +261,23 @@ export default function GlassNav() {
 
 
 
-  /* ── render ── */
+  /* render */
+
+  // Combined visibility: hide if in scroll sequence OR idle for more than 2s
+  const navHidden = inScrollSeq || idleHidden;
+
   return (
     <>
-      <img
+      {/* Logo - also hides in scroll sequences */}
+      <motion.img
         src="/logoo.jpeg"
         alt="Viruthi Logo"
         onClick={() => startTransition('/')}
+        animate={{
+          opacity: navHidden ? 0 : 1,
+          y:       navHidden ? -12 : 0,
+        }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         style={{
           position: 'fixed',
           top: '20px',
@@ -232,6 +287,7 @@ export default function GlassNav() {
           zIndex: 1000,
           objectFit: 'contain',
           cursor: 'pointer',
+          pointerEvents: navHidden ? 'none' : 'auto',
         }}
       />
       <div
@@ -242,13 +298,17 @@ export default function GlassNav() {
           right:     isMobile ? '20px' : 'auto',
           transform: isMobile ? 'none' : 'translateX(-50%)',
           zIndex:    1000,
+          pointerEvents: navHidden ? 'none' : 'auto',
         }}
       >
-      <motion.div
-        initial={{ opacity: 0, y: -18 }}
-        animate={{ opacity: 1,  y: 0   }}
-        transition={{ duration: 1.0, delay: 0.15, ease: EASE }}
-      >
+        <motion.div
+          initial={{ opacity: 0, y: -18 }}
+          animate={{
+            opacity: navHidden ? 0 : 1,
+            y:       navHidden ? -16 : 0,
+          }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        >
         {/* ── DESKTOP NAV ─────────────────────────────────────────────── */}
         {mounted && !isMobile && (
           <div style={BORDER_SHELL}>
@@ -507,7 +567,7 @@ export default function GlassNav() {
                         }}
                         onMouseEnter={e => {
                           if (i !== active) {
-                            (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.5)';
+                            (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.85)';
                             (e.currentTarget as HTMLElement).style.color = 'rgba(0,0,0,0.85)';
                           }
                         }}
@@ -529,8 +589,8 @@ export default function GlassNav() {
             </AnimatePresence>
           </div>
         )}
-      </motion.div>
-    </div>
+        </motion.div>
+      </div>
     </>
   );
 }

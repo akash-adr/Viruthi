@@ -65,7 +65,7 @@ export default function CounsellorIntro() {
                 fontSize: '10px',
                 fontWeight: 400,
                 letterSpacing: '0.3em',
-                color: 'rgba(13,13,13,0.4)',
+                color: 'rgba(13,13,13,0.85)',
                 textTransform: 'uppercase',
               }}
             >

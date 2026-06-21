@@ -1,106 +1,265 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Playfair_Display } from 'next/font/google';
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  style: ['italic', 'normal'],
-});
 
 const FRAME_COUNT = 240;
-const SCROLL_HEIGHT_VH = 500; // 500vh to make scrolling feel deliberate
+const SCROLL_HEIGHT_VH = 700;
 
-// Caption definitions mapped to scroll percentages
-const CAPTIONS = [
-  { text: "Every couple fights.", start: 0.0, end: 0.15 },
-  { text: "Some fights feel impossible to come back from.", start: 0.15, end: 0.30 },
-  { text: "But one of you still reaches out.", start: 0.30, end: 0.45 },
-  { text: "That's where we come in.", start: 0.45, end: 0.60 },
-  { text: "A safe space. A guide. Someone who listens to both sides.", start: 0.60, end: 0.75 },
-  { text: "Slowly, the noise quiets.", start: 0.75, end: 0.88 },
-  { text: "And what was broken... becomes whole again.", start: 0.88, end: 1.0 },
+/*
+  PIXEL-PRECISE CLEAR ZONE ANALYSIS (image is 1456×816 landscape)
+  ────────────────────────────────────────────────────────────────
+  F001–036  Angry couple (arms crossed). Characters: x 27–73%, y 13–92%.
+            Smoke clouds at top-center ~x35–73%, y0–18%.
+            → CLEAR: far-left strip x0–20% (mid-height), bottom band y88–100%
+            → USE: bottom-left strip (below characters, left side clear)
+
+  F036–072  One reaches out. Characters shift slightly left: x28–75%, y15–92%.
+            Exclamation marks top-right ~x55–75%, y12–28%.
+            → CLEAR: far-left strip x0–22% (mid-height)
+            → USE: left edge mid-height — character doesn't reach there
+
+  F072–144  Three people (couple left x12–58%, counsellor right x62–88%).
+            Full-width coverage y15–90%.
+            → CLEAR: top band ONLY y0–12% (narrow but safe)
+            → USE: very top-center above all heads
+
+  F144–180  Same counselling scene + transition to broken hearts.
+            → CLEAR: top band y0–12% only
+            → USE: very top-center
+
+  F180–220  Couple with broken heart pieces, centered x27–73%, y13–90%.
+            → CLEAR: far-left x0–20%, far-right x80–100%, bottom y88–100%
+            → USE: bottom-right strip (below & beside characters)
+
+  F220–240  Smiling couple + red heart, centered x27–73%, y13–92%.
+            → CLEAR: top band y0–12% and bottom band y88–100%
+            → USE: very top-center (above the joy — dramatic contrast)
+*/
+
+type Placement = {
+  style: React.CSSProperties;
+  animY: string;
+};
+
+type CaptionItem = {
+  text: string;
+  start: number;
+  end: number;
+  placement: Placement;
+};
+
+const CAPTIONS: CaptionItem[] = [
+  {
+    text: "Every couple fights.",
+    start: 0.0, end: 0.15,
+    // Bottom-left: characters end at x27% left and y88% bottom
+    // Place text flush to bottom, left quarter — fully clear
+    placement: {
+      style: {
+        position: 'absolute' as const,
+        bottom: '7vh',
+        left: '6vw',
+        width: '32vw',
+        maxWidth: '380px',
+        textAlign: 'left' as const,
+        alignItems: 'flex-start' as const,
+      },
+      animY: 'bottom', // animation direction: upward means reducing bottom offset
+    },
+  },
+  {
+    text: "Some fights feel impossible to come back from.",
+    start: 0.15, end: 0.30,
+    // Far-left mid-height: x0–22% is empty at mid height (characters start at x27%)
+    placement: {
+      style: {
+        position: 'absolute' as const,
+        top: '50%',
+        left: '3vw',
+        transform: 'translateY(-50%)',
+        width: '20vw',
+        maxWidth: '260px',
+        textAlign: 'left' as const,
+        alignItems: 'flex-start' as const,
+      },
+      animY: 'center',
+    },
+  },
+  {
+    text: "But one of you still reaches out.",
+    start: 0.30, end: 0.45,
+    // Top band: Only clear zone when 3 people are in frame
+    // Characters' tallest point (counsellor head) starts ~y14%
+    placement: {
+      style: {
+        position: 'absolute' as const,
+        top: '5vh',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '52vw',
+        maxWidth: '680px',
+        textAlign: 'center' as const,
+        alignItems: 'center' as const,
+      },
+      animY: 'top',
+    },
+  },
+  {
+    text: "That's where we come in.",
+    start: 0.45, end: 0.60,
+    // Top band — same 3-person scene, only top is safe
+    placement: {
+      style: {
+        position: 'absolute' as const,
+        top: '5vh',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '44vw',
+        maxWidth: '600px',
+        textAlign: 'center' as const,
+        alignItems: 'center' as const,
+      },
+      animY: 'top',
+    },
+  },
+  {
+    text: "A safe space. A guide. Someone who listens to both sides.",
+    start: 0.60, end: 0.75,
+    // Top band — still 3-person / transition frames
+    placement: {
+      style: {
+        position: 'absolute' as const,
+        top: '5vh',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '56vw',
+        maxWidth: '740px',
+        textAlign: 'center' as const,
+        alignItems: 'center' as const,
+      },
+      animY: 'top',
+    },
+  },
+  {
+    text: "Slowly, the noise quiets.",
+    start: 0.75, end: 0.88,
+    // Bottom-right: couple with broken hearts centered x27–73%
+    // Bottom band y88–100% is safe, right side x74–100% also safe
+    placement: {
+      style: {
+        position: 'absolute' as const,
+        bottom: '7vh',
+        right: '5vw',
+        width: '30vw',
+        maxWidth: '360px',
+        textAlign: 'right' as const,
+        alignItems: 'flex-end' as const,
+      },
+      animY: 'bottom',
+    },
+  },
+  {
+    text: "And what was broken... becomes whole again.",
+    start: 0.88, end: 1.0,
+    // Top band — final couple with red heart centered y13–92%
+    // Top strip y0–11% is the only safe zone for this wide frame
+    placement: {
+      style: {
+        position: 'absolute' as const,
+        top: '5vh',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '58vw',
+        maxWidth: '820px',
+        textAlign: 'center' as const,
+        alignItems: 'center' as const,
+      },
+      animY: 'top',
+    },
+  },
 ];
+
+function getGradientStyle(rel: number, isFinal: boolean): React.CSSProperties {
+  const sweep = rel * 200 - 50;
+  const dim = isFinal ? 0.10 : 0.12;
+  return {
+    background: `linear-gradient(90deg,
+      rgba(13,13,13,${dim}) 0%,
+      rgba(13,13,13,${dim}) ${sweep - 25}%,
+      rgba(13,13,13,1.0) ${sweep}%,
+      rgba(13,13,13,1.0) ${sweep + 18}%,
+      rgba(13,13,13,${dim}) ${sweep + 48}%,
+      rgba(13,13,13,${dim}) 100%)`,
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+  };
+}
+
+// Builds the animated transform that works for each placement type
+function buildTransform(placement: (typeof CAPTIONS)[0]['placement'], translateY: number): string {
+  const existingTransform = (placement.style.transform as string) || '';
+  if (existingTransform.includes('translateY(-50%)')) {
+    return `translateY(calc(-50% + ${translateY}px))`;
+  }
+  if (existingTransform.includes('translateX(-50%)')) {
+    return `translateX(-50%) translateY(${translateY}px)`;
+  }
+  return `translateY(${translateY}px)`;
+}
 
 export default function StoryScroller() {
   const containerRef = useRef<HTMLElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  
-  const [images, setImages] = useState<HTMLImageElement[]>([]);
-  const [loadedCount, setLoadedCount] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const canvasRef    = useRef<HTMLCanvasElement>(null);
 
-  // Check prefers-reduced-motion
+  const [images, setImages]             = useState<HTMLImageElement[]>([]);
+  const [loadedCount, setLoadedCount]   = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [reducedMotion, setReducedMotion]   = useState(false);
+
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(mediaQuery.matches);
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mq.matches);
+    const h = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener('change', h);
+    return () => mq.removeEventListener('change', h);
   }, []);
 
-  // Preload images
   useEffect(() => {
     let mounted = true;
     const loadedImages: HTMLImageElement[] = new Array(FRAME_COUNT);
     let loaded = 0;
 
-    const loadFrame = (index: number) => {
+    for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
-      // Format number to 3 digits e.g. 001
-      const num = (index + 1).toString().padStart(3, '0');
+      const num = (i + 1).toString().padStart(3, '0');
       img.src = `/story/ezgif-frame-${num}.jpg`;
       img.onload = () => {
         if (!mounted) return;
-        loadedImages[index] = img;
+        loadedImages[i] = img;
         loaded++;
         setLoadedCount(loaded);
-        if (loaded === FRAME_COUNT) {
-          setImages(loadedImages);
-        } else if (loaded === 1 && !images.length) {
-          // Temporarily set images so first frame can draw while others load
-          setImages([...loadedImages]);
-        }
+        if (loaded === FRAME_COUNT) setImages([...loadedImages]);
+        else if (loaded === 1) setImages([...loadedImages]);
       };
-      img.onerror = () => {
-        // Handle error by just skipping it
-        loaded++;
-        setLoadedCount(loaded);
-      };
-    };
-
-    // Load sequentially or batched
-    for (let i = 0; i < FRAME_COUNT; i++) {
-      loadFrame(i);
+      img.onerror = () => { loaded++; setLoadedCount(loaded); };
     }
 
-    return () => {
-      mounted = false;
-    };
+    return () => { mounted = false; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Only run once on mount
+  }, []);
 
-  // Scroll Tracking
   useEffect(() => {
     if (reducedMotion) return;
     let ticking = false;
 
-    const handleScroll = () => {
+    const onScroll = () => {
       if (!ticking) {
-        window.requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
           if (containerRef.current) {
-            const rect = containerRef.current.getBoundingClientRect();
-            // Calculate progress through the section
-            // We subtract window.innerHeight so progress is 0 when top hits top, and 1 when bottom hits bottom.
-            const scrollRange = rect.height - window.innerHeight;
-            // distance scrolled past the start of the element
-            const scrolled = -rect.top;
-            
-            let progress = scrolled / scrollRange;
-            progress = Math.max(0, Math.min(1, progress));
-            setScrollProgress(progress);
+            const r = containerRef.current.getBoundingClientRect();
+            const p = Math.max(0, Math.min(1, -r.top / (r.height - window.innerHeight)));
+            setScrollProgress(p);
           }
           ticking = false;
         });
@@ -108,243 +267,205 @@ export default function StoryScroller() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial call
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
   }, [reducedMotion]);
 
-  // Canvas Drawing
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let frameIndex = 0;
-    if (reducedMotion) {
-      frameIndex = FRAME_COUNT - 1; // Show last frame if reduced motion
-    } else {
-      frameIndex = Math.floor(scrollProgress * (FRAME_COUNT - 1));
+    const fi = reducedMotion
+      ? FRAME_COUNT - 1
+      : Math.floor(scrollProgress * (FRAME_COUNT - 1));
+
+    let img: HTMLImageElement | undefined;
+    for (let i = fi; i >= 0; i--) {
+      if (images[i]?.complete) { img = images[i]; break; }
     }
 
-    // Try to get the exact frame, or the closest loaded frame before it
-    let imgToDraw: HTMLImageElement | undefined;
-    for (let i = frameIndex; i >= 0; i--) {
-      if (images[i] && images[i].complete) {
-        imgToDraw = images[i];
-        break;
-      }
-    }
-
-    // Update canvas resolution to match display size for crispness
     const rect = canvas.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-    
-    // Only resize if necessary
+    const dpr  = window.devicePixelRatio || 1;
+
     if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
-      canvas.width = rect.width * dpr;
+      canvas.width  = rect.width  * dpr;
       canvas.height = rect.height * dpr;
       ctx.scale(dpr, dpr);
     } else {
-      ctx.save();
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.restore();
+      ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,canvas.width,canvas.height); ctx.restore();
     }
 
-    if (imgToDraw) {
-      // Draw image using object-fit: contain logic
-      const canvasRatio = rect.width / rect.height;
-      const imgRatio = imgToDraw.width / imgToDraw.height;
-      
-      let drawWidth = rect.width;
-      let drawHeight = rect.height;
-      let offsetX = 0;
-      let offsetY = 0;
-
-      // Smart scaling: Cover on landscape, Contain on portrait to avoid feeling zoomed in
-      const isPortrait = rect.height > rect.width;
-
-      if (isPortrait) {
-        // Contain logic (mobile/portrait)
-        if (imgRatio > canvasRatio) {
-          drawWidth = rect.width;
-          drawHeight = rect.width / imgRatio;
-          offsetY = (rect.height - drawHeight) / 2;
-        } else {
-          drawHeight = rect.height;
-          drawWidth = rect.height * imgRatio;
-          offsetX = (rect.width - drawWidth) / 2;
-        }
+    if (img) {
+      const cr = rect.width / rect.height;
+      const ir = img.width / img.height;
+      let dw = rect.width, dh = rect.height, ox = 0, oy = 0;
+      const portrait = rect.height > rect.width;
+      if (portrait) {
+        if (ir > cr) { dw = rect.width; dh = rect.width / ir; oy = (rect.height - dh) / 2; }
+        else         { dh = rect.height; dw = rect.height * ir; ox = (rect.width - dw) / 2; }
       } else {
-        // Cover logic (desktop/landscape)
-        if (imgRatio > canvasRatio) {
-          drawHeight = rect.height;
-          drawWidth = rect.height * imgRatio;
-          offsetX = (rect.width - drawWidth) / 2;
-        } else {
-          drawWidth = rect.width;
-          drawHeight = rect.width / imgRatio;
-          offsetY = (rect.height - drawHeight) / 2;
-        }
+        if (ir > cr) { dh = rect.height; dw = rect.height * ir; ox = (rect.width - dw) / 2; }
+        else         { dw = rect.width; dh = rect.width / ir; oy = (rect.height - dh) / 2; }
       }
-
-      ctx.drawImage(imgToDraw, offsetX, offsetY, drawWidth, drawHeight);
+      ctx.drawImage(img, ox, oy, dw, dh);
     }
   }, [scrollProgress, images, reducedMotion]);
 
-  // Handle Resize for Canvas Redraw
   useEffect(() => {
-    const handleResize = () => {
-      // Forcing a small state update to trigger the canvas useEffect
-      setScrollProgress(p => p); 
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const h = () => setScrollProgress(p => p);
+    window.addEventListener('resize', h);
+    return () => window.removeEventListener('resize', h);
   }, []);
 
   return (
-    <section 
+    <section
+      id="story-scroller"
       ref={containerRef}
       style={{
         width: '100%',
         height: reducedMotion ? '100vh' : `${SCROLL_HEIGHT_VH}vh`,
         position: 'relative',
         background: '#FFFFFF',
-        borderTop: '1px solid rgba(13,13,13,0.08)'
+        borderTop: '1px solid rgba(13,13,13,0.08)',
       }}
     >
-      <div 
-        style={{
-          position: 'sticky',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100vh',
-          overflow: 'hidden'
-        }}
-      >
-        <canvas 
-          ref={canvasRef}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 1,
-            pointerEvents: 'none'
-          }}
-        />
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700;800;900&family=Inter:wght@400;500&display=swap');
 
-        {/* Loading Indicator */}
+        .ss-text {
+          font-family: 'Inter Tight', 'SF Pro Display', system-ui, sans-serif;
+          font-weight: 800;
+          letter-spacing: -0.04em;
+          line-height: 0.95;
+          margin: 0;
+          will-change: opacity, transform, filter;
+        }
+
+        /* Responsive size: smaller for cramped top-band captions, bigger for isolated ones */
+        .ss-text-sm  { font-size: clamp(1.6rem, 3.5vw, 4rem);  }
+        .ss-text-md  { font-size: clamp(2rem,   4.5vw, 5rem);  }
+        .ss-text-lg  { font-size: clamp(2.6rem, 6vw,   7rem);  }
+
+        .ss-eyebrow {
+          display: block;
+          font-family: 'Inter', system-ui, sans-serif;
+          font-size: 9px;
+          font-weight: 600;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: rgba(13,13,13,0.3);
+          margin-bottom: 12px;
+        }
+
+        .ss-progress {
+          position: absolute;
+          bottom: 0; left: 0;
+          height: 1px;
+          background: rgba(13,13,13,0.12);
+          z-index: 10;
+          transition: width 0.1s linear;
+        }
+
+        .ss-loading {
+          position: absolute;
+          bottom: 28px; right: 32px;
+          z-index: 10;
+          font-family: 'Inter', system-ui, sans-serif;
+          font-size: 10px; font-weight: 500;
+          color: rgba(13,13,13,0.3);
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+        }
+      `}</style>
+
+      <div style={{ position:'sticky', top:0, left:0, width:'100%', height:'100vh', overflow:'hidden', background:'#FFF' }}>
+        <canvas ref={canvasRef} style={{ position:'absolute', inset:0, width:'100%', height:'100%', zIndex:1, pointerEvents:'none' }} />
+
         {loadedCount < FRAME_COUNT && !reducedMotion && (
-          <div style={{
-            position: 'absolute',
-            bottom: '24px',
-            right: '24px',
-            zIndex: 10,
-            fontFamily: 'var(--font-satoshi)',
-            fontSize: '11px',
-            fontWeight: 600,
-            color: 'rgba(13,13,13,0.4)',
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase'
-          }}>
-            Loading Story {Math.floor((loadedCount / FRAME_COUNT) * 100)}%
-          </div>
+          <div className="ss-loading">{Math.floor((loadedCount / FRAME_COUNT) * 100)}%</div>
         )}
 
-        {/* Captions Overlay */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: 5,
-          pointerEvents: 'none'
-        }}>
-          {CAPTIONS.map((cap, idx) => {
-            const isLeft = idx % 2 === 0;
-            
-            // If reduced motion, just show all text blocks stacked
-            if (reducedMotion) {
-              return (
-                <div key={idx} className={playfair.className} style={{ 
-                  margin: '8px 0',
-                  textAlign: 'center',
-                  fontSize: 'clamp(20px, 3vw, 32px)',
-                  fontWeight: 500,
-                  letterSpacing: '-0.01em',
-                  background: 'linear-gradient(to bottom, #000000, #4A4A4A)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}>
-                  {cap.text}
-                </div>
-              );
+        {!reducedMotion && (
+          <div className="ss-progress" style={{ width: `${scrollProgress * 100}%` }} />
+        )}
+
+        <div style={{ position:'absolute', inset:0, zIndex:5, pointerEvents:'none' }}>
+
+          {/* Reduced motion: stacked text */}
+          {reducedMotion && (
+            <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'60vw', maxWidth:'800px', display:'flex', flexDirection:'column', gap:'24px', textAlign:'center', alignItems:'center' }}>
+              {CAPTIONS.map((c, i) => (
+                <p key={i} className="ss-text ss-text-md" style={{ background:'linear-gradient(135deg,#0D0D0D 0%,rgba(13,13,13,0.6) 100%)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' }}>
+                  {c.text}
+                </p>
+              ))}
+            </div>
+          )}
+
+          {/* Scroll-driven captions */}
+          {!reducedMotion && CAPTIONS.map((cap, idx) => {
+            const segLen = cap.end - cap.start;
+            const rel    = (scrollProgress - cap.start) / segLen;
+
+            if (rel < 0 || rel > 1) return null;
+
+            const FADE_IN  = 0.20;
+            const FADE_OUT = 0.20;
+            const isFinal  = idx === CAPTIONS.length - 1;
+
+            let opacity = 1, translateY = 0, blur = 0;
+
+            if (rel < FADE_IN) {
+              const t = rel / FADE_IN;
+              const e = t * t * (3 - 2 * t); // smoothstep
+              opacity    = e;
+              translateY = 36 * (1 - e); // always slides in from below
+              blur       = 8 * (1 - e);
+            } else if (rel > 1 - FADE_OUT) {
+              const t = (1 - rel) / FADE_OUT;
+              const e = t * t * (3 - 2 * t);
+              opacity    = e;
+              translateY = -20 * (1 - e); // drifts up on exit
+              blur       = isFinal ? 0 : 6 * (1 - e);
             }
 
-            // Normal scroll math
-            const segmentLength = cap.end - cap.start;
-            // How far are we into this specific caption's segment? (0 to 1)
-            const relativeProgress = (scrollProgress - cap.start) / segmentLength;
-            
-            // If outside segment bounds, don't render
-            if (relativeProgress < 0 || relativeProgress > 1) {
-              return null;
-            }
+            const gradStyle = getGradientStyle(rel, isFinal);
+            const transform = buildTransform(cap.placement, translateY);
 
-            // Calculate Opacity, TranslateY, Scale, and Blur
-            let opacity = 1;
-            let translateY = 0; // px
-            let scale = 1;
-            let blur = 0; // px
-            const FADE_FRAC = 0.25; // 25% fade in, 25% fade out for smoother transition
+            // Pick size: top-band captions get sm (space is narrow), isolated ones get lg
+            const sizeClass = cap.placement.animY === 'top'
+              ? 'ss-text-sm'
+              : isFinal
+                ? 'ss-text-lg'
+                : 'ss-text-md';
 
-            if (relativeProgress < FADE_FRAC) {
-              // Fading in
-              const localProgress = relativeProgress / FADE_FRAC;
-              opacity = Math.pow(localProgress, 1.5); // Ease-in opacity
-              translateY = 24 * (1 - localProgress); // Start 24px down, move to 0
-              scale = 0.96 + (0.04 * localProgress); // Start at 0.96, move to 1
-              blur = 8 * (1 - localProgress); // Start with 8px blur, move to 0
-            } else if (relativeProgress > 1 - FADE_FRAC) {
-              // Fading out
-              const localProgress = (1 - relativeProgress) / FADE_FRAC;
-              opacity = Math.pow(localProgress, 1.5);
-              translateY = -24 * (1 - localProgress); // Start 0, drift upwards to -24px
-              scale = 1 + (0.04 * (1 - localProgress)); // Drift slightly larger to 1.04
-              blur = 8 * (1 - localProgress);
-            }
+            const num = String(idx + 1).padStart(2, '0');
 
             return (
-              <div 
+              <div
                 key={idx}
-                className={playfair.className}
                 style={{
-                  position: 'absolute',
-                  top: '50%',
-                  [isLeft ? 'left' : 'right']: '5vw',
-                  width: '90vw',
-                  maxWidth: '500px',
-                  textAlign: isLeft ? 'left' : 'right',
-                  fontSize: 'clamp(28px, 4vw, 46px)',
-                  fontWeight: 400,
-                  lineHeight: 1.3,
-                  letterSpacing: '-0.01em',
-                  background: 'linear-gradient(135deg, #0A0A0A 0%, #6A6A6A 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  opacity: opacity,
-                  transform: `translateY(calc(-50% + ${translateY}px)) scale(${scale})`,
+                  ...cap.placement.style,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  transform,
+                  opacity,
+                  filter: `blur(${blur}px)`,
                   willChange: 'opacity, transform, filter',
-                  // Soft white radial glow for legibility against black lines, plus the dynamic blur
-                  filter: `drop-shadow(0 0 32px rgba(255,255,255,1)) drop-shadow(0 0 12px rgba(255,255,255,0.8)) blur(${blur}px)`,
                 }}
               >
-                {cap.text}
+                <span className="ss-eyebrow">{num} / 07</span>
+                <p className={`ss-text ${sizeClass}`} style={{ ...gradStyle }}>
+                  {cap.text}
+                </p>
+                {isFinal && (
+                  <span style={{ fontFamily:'Inter,sans-serif', fontSize:'10px', fontWeight:500, letterSpacing:'0.22em', textTransform:'uppercase', color:'rgba(13,13,13,0.28)', marginTop:'20px' }}>
+                    Viruthi · Centre for Flourishing Families
+                  </span>
+                )}
               </div>
             );
           })}

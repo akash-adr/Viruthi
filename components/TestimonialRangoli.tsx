@@ -58,12 +58,12 @@ const TESTIMONIALS = [
 ];
 
 const DOT_COORDS = [
-  [50, 21.2],   // 0: Top
-  [63.5, 32.5], // 1: TR
-  [63.5, 49.5], // 2: BR
-  [50, 60.5],   // 3: Bottom
-  [36.5, 49.5], // 4: BL
-  [36.5, 32.5], // 5: TL
+  [50.0, 22.5], // 0: Top
+  [69.1, 39.0], // 1: TR
+  [69.1, 60.8], // 2: BR
+  [50.0, 77.0], // 3: Bottom
+  [30.9, 60.8], // 4: BL
+  [30.9, 39.0], // 5: TL
 ];
 
 export default function TestimonialRangoli() {
@@ -241,7 +241,7 @@ export default function TestimonialRangoli() {
         >
           <div className="rangoli-wrapper">
             <img 
-              src="/logoo.jpeg" 
+              src="/testimonial.jpeg" 
               alt="Viruthi Testimonials" 
               style={{ width: '100%', height: '100%', objectFit: 'contain', pointerEvents: 'none' }} 
             />
@@ -299,7 +299,7 @@ export default function TestimonialRangoli() {
                   <div className="t-avatar">{activeTestimonial.initial}</div>
                   <div>
                     <div style={{ fontFamily: 'var(--font-satoshi)', fontSize: '16px', fontWeight: 600, color: '#0D0D0D' }}>{activeTestimonial.name}</div>
-                    <div style={{ fontFamily: 'var(--font-satoshi)', fontSize: '12px', color: 'rgba(13,13,13,0.5)' }}>{activeTestimonial.subtext}</div>
+                    <div style={{ fontFamily: 'var(--font-satoshi)', fontSize: '12px', color: 'rgba(13,13,13,0.85)' }}>{activeTestimonial.subtext}</div>
                   </div>
                 </div>
                 <div className={playfair.className} style={{ fontSize: 'clamp(40px, 4vw, 64px)', fontWeight: 300, color: 'rgba(13,13,13,0.05)', lineHeight: 0.8, letterSpacing: '-0.02em' }}>
@@ -331,7 +331,7 @@ export default function TestimonialRangoli() {
           gap: '24px'
         }}
       >
-        <div style={{ fontFamily: 'var(--font-satoshi)', fontSize: '14px', fontStyle: 'italic', color: 'rgba(13,13,13,0.6)' }}>
+        <div style={{ fontFamily: 'var(--font-satoshi)', fontSize: '14px', fontStyle: 'italic', color: 'rgba(13,13,13,0.85)' }}>
           Ready to trace your own story?
         </div>
         <button 

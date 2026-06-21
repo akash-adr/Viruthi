@@ -88,7 +88,7 @@ export default function CounsellorHero() {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 40%, transparent 100%);
+            background: linear-gradient(to bottom, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.85) 40%, transparent 100%);
             z-index: 2;
           }
         }
@@ -148,7 +148,7 @@ export default function CounsellorHero() {
               fontSize: '10px',
               fontWeight: 500,
               letterSpacing: '0.3em',
-              color: 'rgba(13,13,13,0.6)',
+              color: 'rgba(13,13,13,0.85)',
               textTransform: 'uppercase',
               marginBottom: '32px',
               display: 'flex',
@@ -288,7 +288,7 @@ export default function CounsellorHero() {
               left: 0,
               width: '1px',
               height: '50%',
-              background: 'rgba(255,255,255,0.6)',
+              background: 'rgba(255,255,255,0.85)',
             }}
           />
         </div>

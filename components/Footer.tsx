@@ -82,7 +82,7 @@ export default function Footer() {
           <p
             style={{
               fontFamily: 'var(--font-satoshi)',
-              fontSize: '14px',
+              fontSize: '20px',
               fontWeight: 300,
               lineHeight: 1.6,
               color: 'rgba(255,255,255,0.9)',
@@ -101,7 +101,7 @@ export default function Footer() {
                 fontSize: '11px',
                 fontWeight: 500,
                 letterSpacing: '0.2em',
-                color: 'rgba(255,255,255,0.4)',
+                color: 'rgba(255,255,255,0.85)',
                 textTransform: 'uppercase',
               }}
             >
@@ -158,7 +158,7 @@ export default function Footer() {
               fontSize: '11px',
               fontWeight: 500,
               letterSpacing: '0.2em',
-              color: 'rgba(255,255,255,0.4)',
+              color: 'rgba(255,255,255,0.85)',
               textTransform: 'uppercase',
             }}
           >
@@ -202,7 +202,7 @@ export default function Footer() {
               fontSize: '11px',
               fontWeight: 500,
               letterSpacing: '0.2em',
-              color: 'rgba(255,255,255,0.4)',
+              color: 'rgba(255,255,255,0.85)',
               textTransform: 'uppercase',
             }}
           >
@@ -408,7 +408,7 @@ export default function Footer() {
                 fontSize: '10px',
                 fontWeight: 500,
                 letterSpacing: '0.1em',
-                color: 'rgba(255,255,255,0.4)',
+                color: 'rgba(255,255,255,0.85)',
                 textTransform: 'uppercase',
               }}
             >

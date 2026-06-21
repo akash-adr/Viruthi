@@ -157,7 +157,7 @@ export default function CounsellorCTA() {
                 transition: 'border-color 0.2s ease, background 0.2s ease',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(13,13,13,0.5)';
+                e.currentTarget.style.borderColor = 'rgba(13,13,13,0.85)';
                 e.currentTarget.style.background = 'rgba(13,13,13,0.05)';
               }}
               onMouseLeave={(e) => {

@@ -219,7 +219,7 @@ export default function SplitSection() {
                 fontWeight: 800,
                 letterSpacing: '-0.02em',
                 lineHeight: 1.15,
-                color: 'rgba(255,255,255,0.6)',
+                color: 'rgba(255,255,255,0.85)',
                 userSelect: 'none',
               }}
             >

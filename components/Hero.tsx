@@ -63,7 +63,8 @@ export default function Hero() {
       {/* ── CENTERED BLOCK: micro-label + VIRUTHI ── */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 1.0, delay: 0.35, ease: EASE }}
         style={{
           width: '100%',
@@ -142,7 +143,8 @@ export default function Hero() {
               <motion.span
                 key={index}
                 initial={{ opacity: 0, rotateZ: -8, y: 60, scale: 0.95 }}
-                animate={{ opacity: 1, rotateZ: 0, y: 0, scale: 1 }}
+                whileInView={{ opacity: 1, rotateZ: 0, y: 0, scale: 1 }}
+                viewport={{ once: false, amount: 0.2 }}
                 transition={{
                   duration: 1.2,
                   ease: EASE,
@@ -164,7 +166,7 @@ export default function Hero() {
               zIndex: 2,
               opacity: gradientOpacity,
               background:
-                'linear-gradient(135deg, rgba(13,13,13,0.0) 0%, rgba(13,13,13,0.05) 40%, rgba(255,255,255,0.6) 100%)',
+                'linear-gradient(135deg, rgba(13,13,13,0.0) 0%, rgba(13,13,13,0.05) 40%, rgba(255,255,255,0.85) 100%)',
               mixBlendMode: 'screen',
               pointerEvents: 'none',
             }}
@@ -176,7 +178,8 @@ export default function Hero() {
       <motion.p
         id="hero-description"
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.9, delay: 0.85, ease: EASE }}
         style={{
           position: 'absolute',
@@ -202,7 +205,8 @@ export default function Hero() {
       <motion.div
         id="hero-scroll"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.8, delay: 1.1, ease: EASE }}
         style={{
           position: 'absolute',
@@ -246,7 +250,7 @@ export default function Hero() {
               left: 0,
               width: '1px',
               height: '50%',
-              background: 'rgba(13,13,13,0.5)',
+              background: 'rgba(13,13,13,0.85)',
             }}
           />
         </div>
@@ -256,7 +260,8 @@ export default function Hero() {
       <motion.div
         id="hero-cta-wrapper"
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.9, delay: 1.0, ease: EASE }}
         style={{
           position: 'absolute',
@@ -273,7 +278,7 @@ export default function Hero() {
           id="hero-tagline"
           style={{
             fontFamily: 'var(--font-satoshi)',
-            fontSize: '16px', // Increased from 13px
+            fontSize: '20px', // Increased from 13px
             fontWeight: 300,
             lineHeight: 1.6,
             letterSpacing: '0.01em',
@@ -301,8 +306,8 @@ export default function Hero() {
             textTransform: 'uppercase',
             color: connectHovered ? '#ffffff' : '#0D0D0D',
             background: connectHovered ? '#0D0D0D' : 'transparent',
-            border: '1px solid rgba(13,13,13,0.4)',
-            borderColor: connectHovered ? '#0D0D0D' : 'rgba(13,13,13,0.4)',
+            border: '1px solid rgba(13,13,13,0.85)',
+            borderColor: connectHovered ? '#0D0D0D' : 'rgba(13,13,13,0.85)',
             borderRadius: '999px',
             padding: '10px 24px',
             cursor: 'none',

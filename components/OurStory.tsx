@@ -74,7 +74,7 @@ export default function OurStory() {
           font-size: 10px;
           font-weight: 500;
           letter-spacing: 0.3em;
-          color: rgba(13,13,13,0.4);
+          color: rgba(13,13,13,0.85);
           text-transform: uppercase;
           margin-bottom: 24px;
           display: block;
