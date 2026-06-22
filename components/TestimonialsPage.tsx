@@ -671,8 +671,6 @@ function Carousel({ items }: { items: Testimonial[] }) {
     startXRef.current = null;
   };
 
-  const t = items[active];
-
   return (
     <div
       style={{ width: '100%', maxWidth: '860px', margin: '0 auto', userSelect: 'none' }}
