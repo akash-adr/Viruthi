@@ -13,11 +13,11 @@ const EASE   = [0.16, 1, 0.3, 1] as [number, number, number, number];
 const SPRING = { type: 'spring', stiffness: 400, damping: 36, mass: 0.8 } as const;
 
 const NAV_ITEMS = [
-  { label: 'Home',         id: 'hero',         path: '/' },
-  { label: 'Our Founder',  id: 'our-founder',  path: '/our-founder' },
-  { label: 'Services',     id: 'services',     path: '/' },
-  { label: 'Testimonials', id: 'testimonials', path: '/' },
-  { label: 'Contact Us',   id: 'contact',      path: '/' },
+  { label: 'Home',         id: 'hero',          path: '/' },
+  { label: 'Our Founder',  id: 'our-founder',   path: '/our-founder' },
+  { label: 'Services',     id: 'services',      path: '/' },
+  { label: 'Testimonials', id: 'testimonials',  path: '/testimonials' },
+  { label: 'Contact Us',   id: 'contact',       path: '/' },
 ] as const;
 
 /* ─────────────────────────────────────────────────────────────────────────────

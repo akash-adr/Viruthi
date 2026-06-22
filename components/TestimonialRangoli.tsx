@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Playfair_Display } from 'next/font/google';
+import Link from 'next/link';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -324,49 +325,92 @@ export default function TestimonialRangoli() {
         transition={{ duration: 1, delay: 0.6, ease: EASE }}
         style={{
           marginTop: '120px',
-          textAlign: 'center',
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: 'row',
+          justifyContent: 'center',
           alignItems: 'center',
-          gap: '24px'
+          gap: '4vw',
+          flexWrap: 'wrap'
         }}
       >
-        <div style={{ fontFamily: 'var(--font-satoshi)', fontSize: '14px', fontStyle: 'italic', color: 'rgba(13,13,13,0.85)' }}>
-          Ready to trace your own story?
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
+          <div style={{ fontFamily: 'var(--font-satoshi)', fontSize: '14px', fontStyle: 'italic', color: 'rgba(13,13,13,0.85)' }}>
+            Want to read more experiences?
+          </div>
+          <Link
+            href="/testimonials"
+            style={{
+              display: 'inline-block',
+              padding: '18px 46px',
+              background: 'transparent',
+              color: '#0D0D0D',
+              border: '2px solid #0D0D0D',
+              borderRadius: '999px',
+              fontFamily: 'var(--font-satoshi)',
+              fontSize: '14px',
+              fontWeight: 600,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+              transition: 'all 0.4s ease',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+              textDecoration: 'none',
+            }}
+            onMouseOver={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 30px rgba(0,0,0,0.1)';
+              (e.currentTarget as HTMLElement).style.background = '#0D0D0D';
+              (e.currentTarget as HTMLElement).style.color = '#FFFFFF';
+            }}
+            onMouseOut={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 20px rgba(0,0,0,0.05)';
+              (e.currentTarget as HTMLElement).style.background = 'transparent';
+              (e.currentTarget as HTMLElement).style.color = '#0D0D0D';
+            }}
+          >
+            Explore more testimonials
+          </Link>
         </div>
-        <button 
-          onClick={() => {
-            const el = document.getElementById('contact');
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-          }}
-          style={{
-            padding: '20px 48px',
-            background: '#0D0D0D',
-            color: '#FFFFFF',
-            border: 'none',
-            borderRadius: '999px',
-            fontFamily: 'var(--font-satoshi)',
-            fontSize: '14px',
-            fontWeight: 600,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            cursor: 'pointer',
-            transition: 'all 0.4s ease',
-            boxShadow: '0 8px 30px rgba(0,0,0,0.1)'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.2)';
-            e.currentTarget.style.background = '#333333';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.1)';
-            e.currentTarget.style.background = '#0D0D0D';
-          }}
-        >
-          Begin the Journey
-        </button>
+
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
+          <div style={{ fontFamily: 'var(--font-satoshi)', fontSize: '14px', fontStyle: 'italic', color: 'rgba(13,13,13,0.85)' }}>
+            Ready to trace your own story?
+          </div>
+          <button 
+            onClick={() => {
+              const el = document.getElementById('contact');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            style={{
+              padding: '20px 48px',
+              background: '#0D0D0D',
+              color: '#FFFFFF',
+              border: 'none',
+              borderRadius: '999px',
+              fontFamily: 'var(--font-satoshi)',
+              fontSize: '14px',
+              fontWeight: 600,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+              transition: 'all 0.4s ease',
+              boxShadow: '0 8px 30px rgba(0,0,0,0.1)'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.2)';
+              e.currentTarget.style.background = '#333333';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.1)';
+              e.currentTarget.style.background = '#0D0D0D';
+            }}
+          >
+            Begin the Journey
+          </button>
+        </div>
       </motion.div>
 
     </section>

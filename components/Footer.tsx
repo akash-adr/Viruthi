@@ -14,7 +14,7 @@ const NAV_LINKS = [
   { label: 'Our Story',    path: '/#our-story' },
   { label: 'Our Founder',  path: '/our-founder' },
   { label: 'Services',     path: '/#services' },
-  { label: 'Testimonials', path: '/#testimonials' },
+  { label: 'Testimonials', path: '/testimonials' },
   { label: 'Contact Us',   path: '/#contact' },
 ];
 
