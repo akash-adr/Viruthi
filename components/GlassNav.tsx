@@ -16,7 +16,7 @@ const NAV_ITEMS = [
   { label: 'Home',         id: 'hero',          path: '/' },
   { label: 'Our Founder',  id: 'our-founder',   path: '/our-founder' },
   { label: 'Services',     id: 'services',      path: '/' },
-  { label: 'Testimonials', id: 'testimonials',  path: '/testimonials' },
+  { label: 'Testimonials', id: 'testimonials',  path: '/' },
   { label: 'Contact Us',   id: 'contact',       path: '/' },
 ] as const;
 

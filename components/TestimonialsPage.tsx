@@ -1047,10 +1047,7 @@ export default function TestimonialsPage() {
       <style>{`
         .tp-section {
           width: 100%;
-          background-image: url(/c2.jpeg);
-          background-size: cover;
-          background-position: center;
-          background-attachment: fixed;
+          background: #FFFFFF;
           min-height: 100vh;
         }
 
