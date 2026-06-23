@@ -181,18 +181,18 @@ const CAPTIONS: CaptionItem[] = [
 
 function getGradientStyle(rel: number, isFinal: boolean): React.CSSProperties {
   const sweep = rel * 200 - 50;
-  const dim = isFinal ? 0.10 : 0.12;
+  const baseAlpha = isFinal ? 0.08 : 0.0;
+  const mask = `linear-gradient(90deg,
+    rgba(0,0,0,${baseAlpha}) 0%,
+    rgba(0,0,0,${baseAlpha}) ${sweep - 25}%,
+    rgba(0,0,0,1) ${sweep}%,
+    rgba(0,0,0,1) ${sweep + 18}%,
+    rgba(0,0,0,${baseAlpha}) ${sweep + 48}%,
+    rgba(0,0,0,${baseAlpha}) 100%)`;
   return {
-    background: `linear-gradient(90deg,
-      rgba(13,13,13,${dim}) 0%,
-      rgba(13,13,13,${dim}) ${sweep - 25}%,
-      rgba(13,13,13,1.0) ${sweep}%,
-      rgba(13,13,13,1.0) ${sweep + 18}%,
-      rgba(13,13,13,${dim}) ${sweep + 48}%,
-      rgba(13,13,13,${dim}) 100%)`,
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    backgroundClip: 'text',
+    color: '#0D0D0D',
+    WebkitMaskImage: mask,
+    maskImage: mask,
   };
 }
 
@@ -341,7 +341,6 @@ export default function StoryScroller() {
           letter-spacing: -0.04em;
           line-height: 0.95;
           margin: 0;
-          will-change: opacity, transform, filter;
         }
 
         /* Responsive size: smaller for cramped top-band captions, bigger for isolated ones */
@@ -398,7 +397,7 @@ export default function StoryScroller() {
           {reducedMotion && (
             <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'60vw', maxWidth:'800px', display:'flex', flexDirection:'column', gap:'24px', textAlign:'center', alignItems:'center' }}>
               {CAPTIONS.map((c, i) => (
-                <p key={i} className="ss-text ss-text-md" style={{ background:'linear-gradient(135deg,#0D0D0D 0%,rgba(13,13,13,0.6) 100%)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent' }}>
+                <p key={i} className="ss-text ss-text-md" style={{ color: '#0D0D0D' }}>
                   {c.text}
                 </p>
               ))}
@@ -416,20 +415,18 @@ export default function StoryScroller() {
             const FADE_OUT = 0.20;
             const isFinal  = idx === CAPTIONS.length - 1;
 
-            let opacity = 1, translateY = 0, blur = 0;
+            let opacity = 1, translateY = 0;
 
             if (rel < FADE_IN) {
               const t = rel / FADE_IN;
               const e = t * t * (3 - 2 * t); // smoothstep
               opacity    = e;
-              translateY = 36 * (1 - e); // always slides in from below
-              blur       = 8 * (1 - e);
+              translateY = 36 * (1 - e);
             } else if (rel > 1 - FADE_OUT) {
               const t = (1 - rel) / FADE_OUT;
               const e = t * t * (3 - 2 * t);
               opacity    = e;
-              translateY = -20 * (1 - e); // drifts up on exit
-              blur       = isFinal ? 0 : 6 * (1 - e);
+              translateY = -20 * (1 - e);
             }
 
             const gradStyle = getGradientStyle(rel, isFinal);
@@ -453,8 +450,7 @@ export default function StoryScroller() {
                   flexDirection: 'column',
                   transform,
                   opacity,
-                  filter: `blur(${blur}px)`,
-                  willChange: 'opacity, transform, filter',
+                  willChange: 'opacity, transform',
                 }}
               >
                 <span className="ss-eyebrow">{num} / 07</span>

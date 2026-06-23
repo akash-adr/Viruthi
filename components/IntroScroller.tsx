@@ -250,28 +250,25 @@ export default function IntroScroller() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Compute scroll-driven gradient position for text illumination
-  // Gradient sweeps left-to-right as scroll progresses within each caption
+  // Compute scroll-driven gradient mask for text illumination.
+  // Uses mask-image (universally supported) instead of background-clip:text
+  // which is broken in Chrome when parent has overflow:hidden or composited layers.
   const getGradientStyle = (relativeProgress: number, isFinal: boolean): React.CSSProperties => {
-    // Gradient position: 0% = gradient at far left, 100% = far right
-    // Map relativeProgress 0→1 to a sweep from -50% to 150%
     const sweepPos = relativeProgress * 200 - 50; // -50% to 150%
-    const baseOpacity = isFinal ? 0.12 : 0.15;
-    const peakOpacity = 1.0;
-
+    const baseAlpha = isFinal ? 0.08 : 0.0;
+    const mask = `linear-gradient(
+      90deg,
+      rgba(0,0,0,${baseAlpha}) 0%,
+      rgba(0,0,0,${baseAlpha}) ${sweepPos - 30}%,
+      rgba(0,0,0,1) ${sweepPos}%,
+      rgba(0,0,0,1) ${sweepPos + 20}%,
+      rgba(0,0,0,${baseAlpha}) ${sweepPos + 50}%,
+      rgba(0,0,0,${baseAlpha}) 100%
+    )`;
     return {
-      background: `linear-gradient(
-        90deg,
-        rgba(13,13,13,${baseOpacity}) 0%,
-        rgba(13,13,13,${baseOpacity}) ${sweepPos - 30}%,
-        rgba(13,13,13,${peakOpacity}) ${sweepPos}%,
-        rgba(13,13,13,${peakOpacity}) ${sweepPos + 20}%,
-        rgba(13,13,13,${baseOpacity}) ${sweepPos + 50}%,
-        rgba(13,13,13,${baseOpacity}) 100%
-      )`,
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      backgroundClip: 'text',
+      color: '#0D0D0D',
+      WebkitMaskImage: mask,
+      maskImage: mask,
     };
   };
 
@@ -297,8 +294,7 @@ export default function IntroScroller() {
           letter-spacing: -0.04em;
           line-height: 0.95;
           margin: 0;
-          will-change: opacity, transform, filter;
-          display: inline;
+          display: inline-block;
         }
 
         .intro-final-title {
@@ -309,7 +305,6 @@ export default function IntroScroller() {
           line-height: 0.9;
           margin: 0;
           text-transform: lowercase;
-          will-change: opacity, transform, filter;
         }
 
         .intro-subtitle {
@@ -455,19 +450,15 @@ export default function IntroScroller() {
                 <div key={idx}>
                   {cap.subtitle ? (
                     <>
-                      <h2 className="intro-final-title" style={{
-                        background: 'linear-gradient(135deg, #0D0D0D 0%, rgba(13,13,13,0.7) 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                      }}>{cap.text}</h2>
+                      <h2 className="intro-final-title" style={{ color: '#0D0D0D' }}>
+                        {cap.text}
+                      </h2>
                       <span className="intro-subtitle">{cap.subtitle}</span>
                     </>
                   ) : (
-                    <p className="intro-statement" style={{
-                      background: 'linear-gradient(135deg, #0D0D0D 0%, rgba(13,13,13,0.7) 100%)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                    }}>{cap.text}</p>
+                    <p className="intro-statement" style={{ color: '#0D0D0D' }}>
+                      {cap.text}
+                    </p>
                   )}
                 </div>
               ))}
@@ -488,21 +479,18 @@ export default function IntroScroller() {
 
             let opacity    = 1;
             let translateY = 0;
-            let blur       = 0;
 
             if (relativeProgress < FADE_IN) {
               const t        = relativeProgress / FADE_IN;
               const eased    = t * t * (3 - 2 * t);
               opacity        = eased;
               translateY     = 40 * (1 - eased);
-              blur           = 10 * (1 - eased);
             } else if (relativeProgress > 1 - FADE_OUT && !isFinal) {
               // Final caption never fades out — stays until end of section
               const t        = (1 - relativeProgress) / FADE_OUT;
               const eased    = t * t * (3 - 2 * t);
               opacity        = eased;
               translateY     = -24 * (1 - eased);
-              blur           = 8 * (1 - eased);
             }
 
             const placementStyle = getPlacementStyle(cap.placement as Placement);
@@ -528,10 +516,7 @@ export default function IntroScroller() {
                   ...placementStyle,
                   transform: baseTransform,
                   opacity,
-                  filter: `blur(${blur}px)`,
-                  willChange: 'opacity, transform, filter',
-                  // Glow halo for legibility over the frame image
-                  textShadow: 'none',
+                  willChange: 'opacity, transform',
                 }}
               >
                 {cap.subtitle ? (

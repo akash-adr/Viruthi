@@ -164,11 +164,10 @@ export default function GlassNav() {
       // 1. Detect if inside a scroll-sequence section
       // "intro" section (#intro) and the StoryScroller section (#story-scroller)
       // We detect by checking if the sticky canvas panels are the element covering the viewport center.
-      const introEl = document.getElementById('intro');
       const storyEl = document.getElementById('story-scroller');
 
       let insideSeq = false;
-      for (const el of [introEl, storyEl]) {
+      for (const el of [storyEl]) {
         if (!el) continue;
         const r = el.getBoundingClientRect();
         // Element's sticky viewport is active: its top is at or above 0

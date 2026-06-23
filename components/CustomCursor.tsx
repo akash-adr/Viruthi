@@ -31,6 +31,16 @@ export default function CustomCursor() {
     const onMouseEnterInteractive = () => cursor.classList.add('cursor--expanded');
     const onMouseLeaveInteractive = () => cursor.classList.remove('cursor--expanded');
 
+    // White cursor when inside #contact section
+    const contactEl = document.getElementById('contact');
+    const onEnterContact = () => cursor.classList.add('cursor--inverted');
+    const onLeaveContact = () => cursor.classList.remove('cursor--inverted');
+
+    if (contactEl) {
+      contactEl.addEventListener('mouseenter', onEnterContact);
+      contactEl.addEventListener('mouseleave', onLeaveContact);
+    }
+
     // Track hover on all interactive elements
     const addHoverListeners = () => {
       const interactives = document.querySelectorAll<HTMLElement>(
@@ -51,6 +61,10 @@ export default function CustomCursor() {
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       cancelAnimationFrame(rafRef.current);
+      if (contactEl) {
+        contactEl.removeEventListener('mouseenter', onEnterContact);
+        contactEl.removeEventListener('mouseleave', onLeaveContact);
+      }
     };
   }, []);
 
