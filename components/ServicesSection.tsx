@@ -444,7 +444,7 @@ export default function ServicesSection() {
             <p className="cs-service-num">Service — 04</p>
             <h3 className={`cs-title ${playfair.className}`}>Coming<br/><em>Soon</em></h3>
             <p className="cs-desc">
-              Something meaningful is being shaped behind the scenes. We'll share more when it's ready.
+              Something meaningful is being shaped behind the scenes. We&apos;ll share more when it&apos;s ready.
             </p>
             <div className="cs-pill">
               <span className="cs-pill-dot" />
