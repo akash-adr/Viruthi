@@ -40,11 +40,8 @@ export default function ServicesSection() {
           max-width: 1440px;
           margin: 0 auto;
           display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
+          grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 24px;
-        }
-        @media (max-width: 1200px) {
-          .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
         @media (max-width: 768px) {
           .services-grid { grid-template-columns: minmax(0, 1fr); }
@@ -64,19 +61,124 @@ export default function ServicesSection() {
         .service-card:hover {
           background: #FFFFFF;
           border-color: rgba(13,13,13,0.15);
-          box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+          box-shadow: 0 20px 60px rgba(0,0,0,0.05);
           transform: translateY(-4px);
         }
+
+        /* Coming Soon Card */
         .service-card.coming-soon {
-          opacity: 0.6;
+          background: #F5F5F3;
+          border: 1px dashed rgba(13,13,13,0.12);
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          min-height: 480px;
+          cursor: default;
         }
         .service-card.coming-soon:hover {
-          transform: none;
-          box-shadow: none;
-          background: #FAFAFA;
-          border-color: rgba(13,13,13,0.08);
+          transform: translateY(-2px);
+          box-shadow: 0 12px 40px rgba(0,0,0,0.04);
+          border-color: rgba(13,13,13,0.18);
+          background: #F5F5F3;
+        }
+        .coming-soon-inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0;
+        }
+        .coming-soon-orbit {
+          position: relative;
+          width: 100px;
+          height: 100px;
+          margin-bottom: 36px;
+        }
+        .orbit-ring {
+          position: absolute;
+          inset: 0;
+          border-radius: 50%;
+          border: 1px solid rgba(13,13,13,0.1);
+          animation: spin-slow 12s linear infinite;
+        }
+        .orbit-ring:nth-child(2) {
+          inset: 10px;
+          border-color: rgba(13,13,13,0.07);
+          animation-duration: 8s;
+          animation-direction: reverse;
+        }
+        .orbit-dot {
+          position: absolute;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: rgba(13,13,13,0.25);
+          top: -3px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        .orbit-center-icon {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .cs-service-num {
+          font-family: var(--font-satoshi);
+          font-size: 10px;
+          font-weight: 600;
+          letter-spacing: 0.25em;
+          text-transform: uppercase;
+          color: rgba(13,13,13,0.3);
+          margin-bottom: 16px;
+        }
+        .cs-title {
+          font-size: 36px;
+          color: #0D0D0D;
+          line-height: 1.15;
+          margin-bottom: 18px;
+          font-weight: 400;
+        }
+        .cs-desc {
+          font-family: var(--font-satoshi);
+          font-size: 16px;
+          color: rgba(13,13,13,0.45);
+          line-height: 1.6;
+          max-width: 280px;
+          font-weight: 300;
+          margin-bottom: 36px;
+        }
+        .cs-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 20px;
+          border-radius: 100px;
+          border: 1px solid rgba(13,13,13,0.1);
+          font-family: var(--font-satoshi);
+          font-size: 10px;
+          font-weight: 600;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: rgba(13,13,13,0.4);
+        }
+        .cs-pill-dot {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: rgba(13,13,13,0.25);
+          animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+          0%, 100% { opacity: 0.3; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.4); }
         }
 
+        /* Active Card Styles */
         .card-top-bar {
           display: flex;
           justify-content: space-between;
@@ -109,7 +211,7 @@ export default function ServicesSection() {
         }
 
         .service-title {
-          font-size: 32px;
+          font-size: 38px;
           color: #0D0D0D;
           line-height: 1.2;
           margin-bottom: 24px;
@@ -186,19 +288,11 @@ export default function ServicesSection() {
           border-color: #0D0D0D;
           background: #FAFAFA;
         }
-        .service-btn.disabled {
-          cursor: not-allowed;
-          opacity: 0.5;
-        }
-        .service-btn.disabled:hover {
-          border-color: rgba(13,13,13,0.1);
-          background: transparent;
-        }
       `}</style>
 
       <div className="services-grid">
         
-        {/* CARD 01 */}
+        {/* CARD 01 — Relationship & Couple Coaching */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -219,23 +313,23 @@ export default function ServicesSection() {
           </p>
 
           <div style={{ borderTop: '1px solid rgba(13,13,13,0.08)', paddingTop: '32px' }}>
-            <div className="practices-label">Core Practices & Alignments:</div>
+            <div className="practices-label">Core Practices &amp; Alignments:</div>
             <ul className="practice-list">
               <li className="practice-item">
                 <span className="practice-num">01</span>
-                <span className="practice-text">Premarital preparation & alignment</span>
+                <span className="practice-text">Premarital preparation &amp; alignment</span>
               </li>
               <li className="practice-item">
                 <span className="practice-num">02</span>
-                <span className="practice-text">Conflict, distance & communication</span>
+                <span className="practice-text">Conflict, distance &amp; communication</span>
               </li>
               <li className="practice-item">
                 <span className="practice-num">03</span>
-                <span className="practice-text">Affair recovery & rebuilding trust</span>
+                <span className="practice-text">Affair recovery &amp; rebuilding trust</span>
               </li>
               <li className="practice-item">
                 <span className="practice-num">04</span>
-                <span className="practice-text">Intimacy, sexuality & desire</span>
+                <span className="practice-text">Intimacy, sexuality &amp; desire</span>
               </li>
             </ul>
           </div>
@@ -246,30 +340,12 @@ export default function ServicesSection() {
           </button>
         </motion.div>
 
-        {/* CARD 02 (COMING SOON) */}
+        {/* CARD 02 — Family Legal Services */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, ease: EASE, delay: 0.1 }}
-          className="service-card coming-soon"
-          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '600px' }}
-        >
-          <div style={{ width: '64px', height: '64px', borderRadius: '50%', border: '1px dashed rgba(13,13,13,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '32px' }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(13,13,13,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-          </div>
-          <h3 className={playfair.className} style={{ fontSize: '32px', color: '#0D0D0D', marginBottom: '16px' }}>Coming Soon</h3>
-          <p style={{ fontFamily: 'var(--font-satoshi)', fontSize: '20px', color: 'rgba(13,13,13,0.85)', maxWidth: '240px' }}>
-            A new exclusive service is currently under development.
-          </p>
-        </motion.div>
-
-        {/* CARD 03 */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
           className="service-card"
         >
           <div className="card-top-bar">
@@ -285,23 +361,23 @@ export default function ServicesSection() {
           </p>
 
           <div style={{ borderTop: '1px solid rgba(13,13,13,0.08)', paddingTop: '32px' }}>
-            <div className="practices-label">Core Practices & Alignments:</div>
+            <div className="practices-label">Core Practices &amp; Alignments:</div>
             <ul className="practice-list">
               <li className="practice-item">
                 <span className="practice-num">05</span>
-                <span className="practice-text">Marriage, separation & divorce</span>
+                <span className="practice-text">Marriage, separation &amp; divorce</span>
               </li>
               <li className="practice-item">
                 <span className="practice-num">06</span>
-                <span className="practice-text">Custody, guardianship & maintenance</span>
+                <span className="practice-text">Custody, guardianship &amp; maintenance</span>
               </li>
               <li className="practice-item">
                 <span className="practice-num">07</span>
-                <span className="practice-text">Mediation & out-of-court settlement</span>
+                <span className="practice-text">Mediation &amp; out-of-court settlement</span>
               </li>
               <li className="practice-item">
                 <span className="practice-num">08</span>
-                <span className="practice-text">Estate, succession & family agreements</span>
+                <span className="practice-text">Estate, succession &amp; family agreements</span>
               </li>
             </ul>
           </div>
@@ -310,6 +386,71 @@ export default function ServicesSection() {
             <span>Inquire With Legal Counsel</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
+        </motion.div>
+
+        {/* CARD 03 — Coming Soon */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
+          className="service-card coming-soon"
+        >
+          <div className="coming-soon-inner">
+            <div className="coming-soon-orbit">
+              <div className="orbit-ring">
+                <div className="orbit-dot" />
+              </div>
+              <div className="orbit-ring" />
+              <div className="orbit-center-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(13,13,13,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+                </svg>
+              </div>
+            </div>
+            <p className="cs-service-num">Service — 03</p>
+            <h3 className={`cs-title ${playfair.className}`}>Coming<br/><em>Soon</em></h3>
+            <p className="cs-desc">
+              A new exclusive service is currently under development. Stay tuned.
+            </p>
+            <div className="cs-pill">
+              <span className="cs-pill-dot" />
+              In Development
+            </div>
+          </div>
+        </motion.div>
+
+        {/* CARD 04 — Coming Soon */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: EASE, delay: 0.3 }}
+          className="service-card coming-soon"
+        >
+          <div className="coming-soon-inner">
+            <div className="coming-soon-orbit">
+              <div className="orbit-ring">
+                <div className="orbit-dot" />
+              </div>
+              <div className="orbit-ring" />
+              <div className="orbit-center-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(13,13,13,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </div>
+            </div>
+            <p className="cs-service-num">Service — 04</p>
+            <h3 className={`cs-title ${playfair.className}`}>Coming<br/><em>Soon</em></h3>
+            <p className="cs-desc">
+              Something meaningful is being shaped behind the scenes. We'll share more when it's ready.
+            </p>
+            <div className="cs-pill">
+              <span className="cs-pill-dot" />
+              In Development
+            </div>
+          </div>
         </motion.div>
 
       </div>
