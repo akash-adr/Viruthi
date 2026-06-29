@@ -34,14 +34,19 @@ export default function SplitSection() {
   }, [scrollYProgress]);
 
   return (
-    <div
-      ref={containerRef}
+    <section
       id="our-story"
-      style={{ height: '300vh', position: 'relative' }}
+      ref={containerRef}
+      style={{ height: '300vh', position: 'relative', background: '#FFFFFF', zIndex: 10 }}
     >
       <style>{`
         .split-container {
+          display: flex;
           flex-direction: row;
+          height: 100vh;
+          position: sticky;
+          top: 0;
+          overflow: hidden;
         }
         .split-left {
           width: 45%;
@@ -84,17 +89,7 @@ export default function SplitSection() {
           }
         }
       `}</style>
-      <div
-        className="split-container"
-        style={{
-          position: 'sticky',
-          top: 0,
-          height: '100vh',
-          display: 'flex',
-          background: '#FFFFFF',
-          overflow: 'hidden',
-        }}
-      >
+      <div className="split-container">
 
         {/* ── LEFT: belief column — still ── */}
         <div
@@ -165,32 +160,27 @@ export default function SplitSection() {
         />
 
         {/* ── RIGHT: scroll-reactive panel ── */}
-        <div className="split-right" style={{ position: 'relative', overflow: 'hidden' }}>
+        <div className="split-right" style={{ position: 'relative', overflow: 'hidden', background: '#0D0D0D' }}>
 
-          {/* Full-bleed images — crossfade */}
+          {/* ── Background Images (Crossfade) ── */}
           {STEPS.map((s, i) => (
             <motion.div
-              key={s.image}
-              animate={{ opacity: i === step ? 1 : 0 }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
-              style={{ position: 'absolute', inset: 0, zIndex: 1 }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={s.image}
-                alt={s.word}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  objectPosition: 'center',
-                  display: 'block',
-                }}
-              />
-            </motion.div>
+              key={i}
+              initial={false}
+              animate={{ opacity: step === i ? 1 : 0 }}
+              transition={{ duration: 0.8, ease: 'easeInOut' }}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundImage: `url(${s.image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                zIndex: 1,
+              }}
+            />
           ))}
 
-          {/* 35% dark overlay */}
+          {/* 35% dark overlay for text contrast */}
           <div
             style={{
               position: 'absolute',
@@ -288,6 +278,6 @@ export default function SplitSection() {
 
         </div>
       </div>
-    </div>
+    </section>
   );
 }

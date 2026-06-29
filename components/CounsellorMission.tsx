@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Playfair_Display } from 'next/font/google';
 
 const playfair = Playfair_Display({
@@ -41,7 +41,6 @@ const CARDS = [
 
 export default function CounsellorMission() {
   const containerRef = useRef<HTMLElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: '-15%' });
 
   return (
     <section
@@ -55,6 +54,8 @@ export default function CounsellorMission() {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        position: 'relative',
+        zIndex: 10,
       }}
     >
       <div style={{ maxWidth: '1440px', width: '100%', margin: '0 auto' }}>
@@ -63,7 +64,8 @@ export default function CounsellorMission() {
         <div style={{ marginBottom: '80px' }}>
           <motion.span
             initial={{ opacity: 0, y: 15 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-10%' }}
             transition={{ duration: 0.8, ease: EASE }}
             style={{
               fontFamily: 'var(--font-satoshi)',
@@ -81,7 +83,8 @@ export default function CounsellorMission() {
 
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-10%' }}
             transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
             className={playfair.className}
             style={{
@@ -99,7 +102,8 @@ export default function CounsellorMission() {
 
           <motion.div
             initial={{ scaleX: 0 }}
-            animate={isInView ? { scaleX: 1 } : {}}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, margin: '-10%' }}
             transition={{ duration: 1.2, delay: 0.2, ease: EASE }}
             style={{
               width: '80px',
@@ -112,7 +116,8 @@ export default function CounsellorMission() {
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-10%' }}
             transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
             className={playfair.className}
             style={{
@@ -141,7 +146,8 @@ export default function CounsellorMission() {
             <motion.div
               key={card.num}
               initial={{ opacity: 0, x: 50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-10%' }}
               transition={{ duration: 0.8, delay: 0.4 + (i * 0.1), ease: EASE }}
               style={{
                 background: '#FFFFFF',
@@ -229,7 +235,8 @@ export default function CounsellorMission() {
         {/* ── CTA BUTTON & TEXT ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-10%' }}
           transition={{ duration: 0.8, delay: 0.8, ease: EASE }}
           style={{
             display: 'flex',

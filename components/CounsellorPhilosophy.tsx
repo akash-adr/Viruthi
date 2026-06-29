@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Playfair_Display } from 'next/font/google';
 
 const playfair = Playfair_Display({
@@ -14,7 +14,6 @@ const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 export default function CounsellorPhilosophy() {
   const containerRef = useRef<HTMLElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: '-20%' });
 
   return (
     <section
@@ -28,6 +27,8 @@ export default function CounsellorPhilosophy() {
         display: 'flex',
         alignItems: 'center',
         borderTop: '1px solid rgba(13,13,13,0.08)',
+        position: 'relative',
+        zIndex: 10,
       }}
     >
       <div
@@ -51,7 +52,8 @@ export default function CounsellorPhilosophy() {
         <motion.div
           className="desktop-divider"
           initial={{ scaleY: 0 }}
-          animate={isInView ? { scaleY: 1 } : {}}
+          whileInView={{ scaleY: 1 }}
+          viewport={{ once: true, margin: '-10%' }}
           transition={{ duration: 1.4, delay: 0.2, ease: EASE }}
           style={{
             position: 'absolute',
@@ -67,7 +69,8 @@ export default function CounsellorPhilosophy() {
         {/* ── LEFT: PHILOSOPHY ── */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-10%' }}
           transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
           style={{ display: 'flex', flexDirection: 'column' }}
         >
@@ -170,7 +173,8 @@ export default function CounsellorPhilosophy() {
         {/* ── RIGHT: APPROACH ── */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-10%' }}
           transition={{ duration: 0.8, delay: 0.3, ease: EASE }}
           style={{ display: 'flex', flexDirection: 'column' }}
         >

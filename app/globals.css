@@ -105,7 +105,7 @@ body {
   color: var(--ink);
   font-family: var(--font-satoshi);
   cursor: none;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -182,7 +182,7 @@ hr {
    ───────────────────────────────────────────────────────────────────────────── */
 
 html, body {
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100vw;
 }
 

@@ -38,6 +38,7 @@ export default function Hero() {
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
+        zIndex: 10,
       }}
     >
       <style>{`
