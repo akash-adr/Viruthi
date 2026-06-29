@@ -215,7 +215,7 @@ export default function SplitSection() {
               style={{
                 textAlign: 'center',
                 fontFamily: 'var(--font-satoshi)',
-                fontSize: '4vw',
+                fontSize: 'clamp(28px, 4vw, 56px)',
                 fontWeight: 800,
                 letterSpacing: '-0.02em',
                 lineHeight: 1.15,

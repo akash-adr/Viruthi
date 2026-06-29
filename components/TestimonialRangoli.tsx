@@ -81,7 +81,7 @@ export default function TestimonialRangoli() {
       style={{
         width: '100%',
         background: '#FFFFFF',
-        padding: '140px 5vw',
+        padding: 'clamp(64px,10vw,140px) 5vw',
         position: 'relative',
         overflow: 'hidden'
       }}

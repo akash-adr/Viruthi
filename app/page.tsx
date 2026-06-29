@@ -1,4 +1,3 @@
-import IntroScroller from "@/components/IntroScroller";
 import Hero from "@/components/Hero";
 import SplitSection from "@/components/SplitSection";
 import ServicesSection from "@/components/ServicesSection";
@@ -11,7 +10,6 @@ import StoryScroller from "@/components/StoryScroller";
 export default function Home() {
   return (
     <main style={{ background: '#000000', position: 'relative' }}>
-      <IntroScroller />
       <Hero />
       <SplitSection />
       <CounsellorMission />

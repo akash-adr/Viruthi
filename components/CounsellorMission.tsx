@@ -51,7 +51,7 @@ export default function CounsellorMission() {
         width: '100%',
         minHeight: '100vh',
         background: '#FFFFFF',
-        padding: '120px 5vw',
+        padding: 'clamp(64px,10vw,120px) 5vw',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

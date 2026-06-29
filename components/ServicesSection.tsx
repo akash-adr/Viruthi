@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Playfair_Display } from 'next/font/google';
+import Link from 'next/link';
 
 const playfair = Playfair_Display({ subsets: ['latin'], weight: ['400', '600', '700'], style: ['italic', 'normal'] });
 
@@ -9,10 +10,10 @@ const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 export default function ServicesSection() {
   return (
-    <section id="services" style={{ width: '100%', background: '#FFFFFF', padding: '160px 5vw', position: 'relative' }}>
+    <section id="services" style={{ width: '100%', background: '#FFFFFF', padding: 'clamp(80px, 12vw, 160px) 5vw', position: 'relative' }}>
       
       {/* HEADER */}
-      <div style={{ maxWidth: '1440px', margin: '0 auto 80px', textAlign: 'center' }}>
+      <div style={{ maxWidth: '1440px', margin: '0 auto clamp(48px,6vw,80px)', textAlign: 'center' }}>
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -43,7 +44,7 @@ export default function ServicesSection() {
           grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 24px;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
           .services-grid { grid-template-columns: minmax(0, 1fr); }
         }
 
@@ -51,7 +52,7 @@ export default function ServicesSection() {
           background: #FAFAFA;
           border: 1px solid rgba(13,13,13,0.08);
           border-radius: 24px;
-          padding: 48px 40px;
+          padding: clamp(28px, 4vw, 48px) clamp(24px, 3vw, 40px);
           display: flex;
           flex-direction: column;
           transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -72,8 +73,15 @@ export default function ServicesSection() {
           align-items: center;
           justify-content: center;
           text-align: center;
-          min-height: 480px;
+          min-height: clamp(320px, 40vw, 480px);
           cursor: default;
+        }
+        @media (max-width: 480px) {
+          .service-card.coming-soon { min-height: 260px; }
+          .service-title { font-size: 28px !important; }
+          .service-desc { font-size: 16px !important; }
+          .service-btn { font-size: 10px !important; padding: 14px !important; }
+          .service-actions { gap: 8px; }
         }
         .service-card.coming-soon:hover {
           transform: translateY(-2px);
@@ -266,9 +274,15 @@ export default function ServicesSection() {
           font-weight: 400;
         }
 
+        .service-actions {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
         .service-btn {
           width: 100%;
-          padding: 20px;
+          padding: 16px 20px;
           background: transparent;
           border: 1px solid rgba(13,13,13,0.1);
           border-radius: 12px;
@@ -287,6 +301,16 @@ export default function ServicesSection() {
         .service-btn:hover {
           border-color: #0D0D0D;
           background: #FAFAFA;
+        }
+
+        .service-btn-primary {
+          background: #0D0D0D;
+          color: #FFFFFF;
+          border-color: #0D0D0D;
+        }
+        .service-btn-primary:hover {
+          background: #222222;
+          border-color: #222222;
         }
       `}</style>
 
@@ -334,10 +358,18 @@ export default function ServicesSection() {
             </ul>
           </div>
 
-          <button className="service-btn" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
-            <span>Schedule Confidential Consultation</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
+          <div className="service-actions">
+            <Link href="/services/relationship-coaching" style={{ textDecoration: 'none', display: 'block' }}>
+              <button className="service-btn" style={{ width: '100%' }}>
+                <span>Learn More</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </Link>
+            <button className="service-btn service-btn-primary" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+              <span>Book a Call</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
         </motion.div>
 
         {/* CARD 02 — Family Legal Services */}
@@ -382,10 +414,16 @@ export default function ServicesSection() {
             </ul>
           </div>
 
-          <button className="service-btn" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
-            <span>Inquire With Legal Counsel</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
+          <div className="service-actions">
+            <button className="service-btn" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+              <span>Learn More</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <button className="service-btn service-btn-primary" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+              <span>Book a Call</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
         </motion.div>
 
         {/* CARD 03 — Coming Soon */}

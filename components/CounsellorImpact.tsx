@@ -49,12 +49,20 @@ export default function CounsellorImpact() {
         width: '100%',
         minHeight: '100vh',
         background: '#FFFFFF',
-        padding: '120px 5vw',
+        padding: 'clamp(80px,10vw,120px) 5vw',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
       }}
     >
+      <style dangerouslySetInnerHTML={{ __html: `
+        @media (max-width: 768px) {
+          #impact .impact-quote { text-align: left !important; max-width: 100% !important; }
+        }
+        @media (max-width: 480px) {
+          #impact .impact-header-row { flex-direction: column !important; align-items: flex-start !important; }
+        }
+      `}} />
       <div style={{ maxWidth: '1440px', width: '100%', margin: '0 auto' }}>
         
         {/* ── HEADER SECTION ── */}

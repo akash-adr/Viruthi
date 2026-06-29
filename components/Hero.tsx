@@ -42,12 +42,8 @@ export default function Hero() {
     >
       <style>{`
         @media (max-width: 768px) {
-          #hero-description {
-            display: none !important;
-          }
-          #hero-scroll {
-            display: none !important;
-          }
+          #hero-description { display: none !important; }
+          #hero-scroll { display: none !important; }
           #hero-cta-wrapper {
             bottom: 40px !important;
             right: 50% !important;
@@ -57,7 +53,13 @@ export default function Hero() {
           }
           #hero-tagline {
             text-align: center !important;
+            font-size: 16px !important;
           }
+          #hero-connect-btn { font-size: 11px !important; }
+        }
+        @media (max-width: 480px) {
+          #hero-cta-wrapper { bottom: 28px !important; }
+          #hero-headline { font-size: 22vw !important; }
         }
       `}</style>
       {/* ── CENTERED BLOCK: micro-label + VIRUTHI ── */}
