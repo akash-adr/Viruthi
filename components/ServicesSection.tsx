@@ -359,7 +359,7 @@ export default function ServicesSection() {
           </div>
 
           <div className="service-actions">
-            <Link href="/services/relationship-coaching" style={{ textDecoration: 'none', display: 'block' }}>
+            <Link href="/services/relationship-coaching" onClick={() => window.scrollTo(0,0)} style={{ textDecoration: 'none', display: 'block' }}>
               <button className="service-btn" style={{ width: '100%' }}>
                 <span>Learn More</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
