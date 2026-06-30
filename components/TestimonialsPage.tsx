@@ -32,87 +32,75 @@ interface Testimonial {
 const TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
-    name: '1',
-    role: 'Married couple, 8 years',
-    quote:
-      'We walked in expecting to be given a script. What we found instead was someone who helped us hear each other again — really hear, not just wait for our turn to speak. The silence in our house has changed its quality.',
+    name: 'Mrs. S',
+    role: 'Chennai',
+    quote: 'Day to day learnings are huge, practical assignments are all lovely and close to my heart. Your whole agenda for these sessions is wholesome, because these assignments are telling us who we are, what kind of love we are giving, what we are expecting to receive, how we are giving importance to our secondary emotions, how to practice our primary emotions, and so on. Changing perspectives on partner, relationship and conflicts are major important things for life, which I learned during sessions.',
   },
   {
     id: 2,
-    name: '2',
-    role: 'Individual, relationship transition',
-    quote:
-      'I had convinced myself the problem was my partner. Three sessions later I realised I had never learned how to stay present in intimacy. Uncomfortable truth. Necessary one.',
+    name: 'Mrs. B',
+    role: 'Chennai',
+    quote: 'Hi Shen... that gratitude letter worked like magic. He wrote and gave 4 pages of letter today. First time ever!',
   },
   {
     id: 3,
-    name: '3',
-    role: 'Couple, pre-marital counselling',
-    quote:
-      'Every conversation we had about money, family, children ended in a wall. We now have a shared language. Not agreement on everything — a language. That is worth more than I imagined.',
+    name: 'Mr. S',
+    role: 'Coimbatore',
+    quote: 'Vulnerability, emotional validation and support, these are most important not only in a relationship but in becoming a better human being. You carried these sessions with a lot of examples which helped us understand many things so clearly. You also provided a lot of tools to practice everything, and you handled everything from an emotional perspective instead of a logical standpoint.',
   },
   {
     id: 4,
-    name: '4',
-    role: 'Mother and daughter',
-    quote:
-      'My daughter and I were strangers who shared a home. We started counselling expecting mediation. What happened felt more like an excavation — gentle, slow, and strangely hopeful.',
+    name: 'Mrs. SD',
+    role: 'Pollachi',
+    quote: 'Can\'t believe the 10 days are already over. I\'ve gained great learnings, and as usual, you went beyond your time to answer our queries and truly listen to what we had to say. This experience has been a perfect realization to end old negative patterns, a beginning to fight better and start building new connections.',
   },
   {
     id: 5,
-    name: '5',
-    role: 'Individual, grief and partnership',
-    quote:
-      'After the miscarriage, my husband and I grieved separately, in the same room, for months. The counselling gave us a map back to each other. We are still walking it.',
+    name: 'Mrs. P',
+    role: 'Bengaluru',
+    quote: 'The whole program was just eye-opening for me. Even though we attended couple communication, we learnt majorly about communication. This session made me realize what we were actually lacking: emotional awareness. I hope with these learnings I\'ll be able to click the reset button on my relationship. Thank you, mam.',
   },
   {
     id: 6,
-    name: '6',
-    role: 'Couple, 14 years together',
-    quote:
-      'We came close to ending things. I am glad we were too tired to argue one more time and decided to try this instead. That tiredness turned out to be a door.',
+    name: 'Mrs. A',
+    role: 'South Korea',
+    quote: 'Ma\'am, thank you so much. I don\'t know how I was able to survive the vacation, so I signed up for your classes. It has been greatly useful. After implementing within the last two weeks, I could see tremendous changes. Applying the strategies you taught in class, this week itself he apologized twice, and I should say that is a miracle in itself. Grateful to you, ma\'am.',
   },
   {
     id: 7,
-    name: '7',
-    role: 'Professional, work-relationship balance',
-    quote:
-      'I have built a career on being articulate. I could not say a single honest sentence to my partner without it turning defensive. Learning why took time. The quiet afterwards was extraordinary.',
+    name: 'Mrs. D',
+    role: 'Chennai',
+    quote: 'So kind-hearted a soul you are... happy to know you in life. The way you handled our emotions, listening to questions, conflicts and stories, was quite impressive. Often giving examples from your own life and how you handled it was very helpful for understanding, and it broke open an understanding that "conflicts are the actual enemy."',
   },
   {
     id: 8,
-    name: '8',
-    role: 'Couple, intercultural relationship',
-    quote:
-      'Our families were the easy part. We were the hard part. The counselling held a mirror up and neither of us looked away. That was the beginning of something real.',
+    name: 'Mrs. M',
+    role: 'US',
+    quote: 'You have helped me through your counseling sessions in becoming who I want to be, by helping me navigate my emotions and a lot more! Now my relationship with my husband is great because of you! We love talking about our triggers and understanding each other. I really respect you! So grateful.',
   },
   {
     id: 9,
-    name: '9',
-    role: 'Individual, recurring patterns',
-    quote:
-      'I kept leaving relationships at the same point — just before they could become real. Understanding the pattern did not dissolve it immediately, but it made it visible. Visibility is the first mercy.',
+    name: 'Mrs. N',
+    role: 'Saudi Arabia',
+    quote: 'After our session, I’ve been trying to focus on my own healing instead of carrying the whole relationship on my shoulders. Recently, I’ve been learning to stop chasing, stop waiting, and stop trying to control things I cannot change. It has brought me a sense of peace. For the first time in a long time, I feel like I’m finding parts of myself again.',
   },
   {
     id: 10,
-    name: '10',
-    role: 'Couple, after affair',
-    quote:
-      'Trust is not rebuilt in a session. But we were given a place to start from, and a guide who did not flinch at the difficult parts. A year on, we are still building. Slowly. Together.',
+    name: 'Anonymous',
+    role: 'Harmoni Coaching',
+    quote: 'In our two years of married life, having sex felt like a chore, and we didn\'t have it even once in the past year before we came to you. And now, thanks to all your sessions, we are going to welcome our little bundle of joy! These sessions have not just helped us in our relationship, but also helped me become a better person. Thank you, Shen, for helping us get back to each other.',
   },
   {
     id: 11,
-    name: '11',
-    role: 'Siblings, estrangement',
-    quote:
-      'My brother and I had not spoken for three years. Coming to counselling felt strange — siblings rarely do this. What I found was that estrangement had its own grammar, and someone who spoke it.',
+    name: 'Anonymous',
+    role: 'Couple Counselling',
+    quote: 'When my relationship was in tatters, I was looking at all possible ways to save it. And when I remembered that you are a couple counselor, I had no second thoughts about getting your help. When the sessions started, I began to understand where I was going wrong. I slowly realised that all the love and affection between us was still there.',
   },
   {
     id: 12,
-    name: '12',
-    role: 'Couple, new parents',
-    quote:
-      'Having a child broke us open in ways we were not ready for. Viruthi helped us understand that the exhaustion and distance were not the end of our story — they were a chapter. We are still writing.',
+    name: 'Anonymous',
+    role: 'Relationship Reset',
+    quote: 'Shen, it\'s been one hell of a session. I loved how gently you put things into my head. You made me notice the things in me which I almost never do. I\'m happy that I reached out to you. The most beautiful thing about the session is I felt like I could be myself, share the part that I feel bad about. I ended up feeling like I am already on the right track after the session.',
   },
 ];
 
@@ -316,7 +304,7 @@ function ExpandedModal({
                     marginBottom: '3px',
                   }}
                 >
-                  Anonymous
+                  {t?.name || 'Anonymous'}
                 </div>
                 <div
                   style={{
@@ -765,7 +753,7 @@ function Carousel({ items }: { items: Testimonial[] }) {
                     color: '#0D0D0D',
                     marginBottom: '4px',
                   }}>
-                    Anonymous
+                    {item.name || 'Anonymous'}
                   </div>
                   <div style={{
                     fontFamily: 'var(--font-satoshi)',
@@ -944,6 +932,66 @@ function WordStrip() {
       >
         {WORD_STRIP_ITEMS[wordIndex]}
       </span>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   VIDEO TESTIMONIAL
+───────────────────────────────────────────────────────────────────────────── */
+
+function VideoTestimonial() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+        setIsPlaying(true);
+      } else {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
+
+  return (
+    <div className="tp-video-section">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div className="tp-video-label">Watch Their Story</div>
+        <h2 className={`tp-video-heading ${playfair.className}`}>
+          A journey from chaos to connection.
+        </h2>
+        <p className="tp-video-desc">
+          Hear firsthand how our relationship reset intensive transformed their daily conflicts into moments of deep understanding and lasting harmony.
+        </p>
+        <button 
+          className="tp-video-btn"
+          onClick={() => { window.location.href = '/#contact'; }}
+        >
+          Book a session
+        </button>
+      </div>
+
+      <div className="tp-video-container">
+        <video 
+          ref={videoRef}
+          src="/videotest.mp4"
+          className="tp-video-element"
+          onClick={togglePlay}
+          playsInline
+        />
+        <button 
+          className="tp-video-play-btn" 
+          onClick={togglePlay}
+          style={{ opacity: isPlaying ? 0 : 1, pointerEvents: isPlaying ? 'none' : 'auto' }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </button>
+      </div>
     </div>
   );
 }
@@ -1225,6 +1273,120 @@ export default function TestimonialsPage() {
           border-color: #FFFFFF;
           transform: translateY(-2px);
         }
+
+        /* Video Section */
+        .tp-video-section {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 140px 5vw;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 80px;
+          align-items: center;
+        }
+
+        @media (max-width: 900px) {
+          .tp-video-section {
+            grid-template-columns: 1fr;
+            gap: 48px;
+            padding: 80px 5vw;
+          }
+        }
+
+        .tp-video-label {
+          font-family: var(--font-satoshi);
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: #AAAAAA;
+        }
+
+        .tp-video-heading {
+          font-size: clamp(32px, 4vw, 48px);
+          font-weight: 400;
+          color: #0D0D0D;
+          letter-spacing: -0.02em;
+          line-height: 1.15;
+          margin: 0;
+        }
+
+        .tp-video-desc {
+          font-family: var(--font-satoshi);
+          font-size: 16px;
+          line-height: 1.6;
+          color: #666666;
+          margin: 0;
+          max-width: 440px;
+        }
+
+        .tp-video-btn {
+          margin-top: 16px;
+          padding: 16px 40px;
+          border-radius: 999px;
+          border: 1px solid #0D0D0D;
+          background: #0D0D0D;
+          color: #FFFFFF;
+          font-family: var(--font-satoshi);
+          font-size: 13px;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          cursor: pointer;
+          transition: all 0.4s ease;
+          width: fit-content;
+        }
+
+        .tp-video-btn:hover {
+          background: transparent;
+          color: #0D0D0D;
+        }
+
+        .tp-video-container {
+          position: relative;
+          border-radius: 28px;
+          overflow: hidden;
+          background: #000;
+          box-shadow: 0 32px 80px rgba(13,13,13,0.12), 0 2px 16px rgba(13,13,13,0.04);
+          transform: translateZ(0);
+        }
+
+        .tp-video-element {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+          aspect-ratio: 4/5;
+          opacity: 0.9;
+          transition: opacity 0.4s ease;
+          cursor: pointer;
+        }
+
+        .tp-video-play-btn {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.4);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          color: #FFFFFF;
+          transition: all 0.3s ease;
+          z-index: 10;
+        }
+
+        .tp-video-play-btn:hover {
+          background: rgba(255, 255, 255, 0.3);
+          transform: translate(-50%, -50%) scale(1.05);
+        }
       `}</style>
 
       {/* ── FLIP MODAL ── */}
@@ -1310,6 +1472,9 @@ export default function TestimonialsPage() {
             />
           </div>
         )}
+
+        {/* ── VIDEO TESTIMONIAL ── */}
+        <VideoTestimonial />
 
         {/* ── DIVIDER ── */}
         <div className="tp-divider">
