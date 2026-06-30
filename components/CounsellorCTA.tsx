@@ -132,7 +132,7 @@ export default function CounsellorCTA() {
                 fontWeight: 600,
                 letterSpacing: '0.15em',
                 textTransform: 'uppercase',
-                cursor: 'none',
+                cursor: 'pointer',
                 transition: 'opacity 0.2s ease',
               }}
               onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.8')}
@@ -153,7 +153,7 @@ export default function CounsellorCTA() {
                 fontWeight: 600,
                 letterSpacing: '0.15em',
                 textTransform: 'uppercase',
-                cursor: 'none',
+                cursor: 'pointer',
                 transition: 'border-color 0.2s ease, background 0.2s ease',
               }}
               onMouseEnter={(e) => {
@@ -211,7 +211,7 @@ export default function CounsellorCTA() {
                   color: '#0D0D0D',
                   textDecoration: 'none',
                   transition: 'all 0.3s ease',
-                  cursor: 'none',
+                  cursor: 'pointer',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = '#0D0D0D';

@@ -154,7 +154,7 @@ export default function CounsellorPhilosophy() {
               fontWeight: 600,
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
-              cursor: 'none',
+              cursor: 'pointer',
               transition: 'border-color 0.2s ease, background 0.2s ease',
             }}
             onMouseEnter={(e) => {
@@ -258,7 +258,7 @@ export default function CounsellorPhilosophy() {
               fontWeight: 600,
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
-              cursor: 'none',
+              cursor: 'pointer',
               transition: 'border-color 0.2s ease, background 0.2s ease',
             }}
             onMouseEnter={(e) => {

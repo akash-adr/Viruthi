@@ -313,7 +313,7 @@ export default function Hero() {
             borderColor: connectHovered ? '#0D0D0D' : 'rgba(13,13,13,0.85)',
             borderRadius: '999px',
             padding: '10px 24px',
-            cursor: 'none',
+            cursor: 'pointer',
             transition:
               'color 0.35s ease, background 0.35s ease, border-color 0.35s ease, padding 0.35s ease',
             lineHeight: 1,

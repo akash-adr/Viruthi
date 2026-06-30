@@ -176,7 +176,7 @@ export default function Footer() {
                   color: 'rgba(255,255,255,0.85)',
                   textDecoration: 'none',
                   width: 'fit-content',
-                  cursor: 'none',
+                  cursor: 'pointer',
                   transition: 'color 0.2s ease, transform 0.2s ease',
                 }}
                 onMouseEnter={(e) => {
@@ -221,7 +221,7 @@ export default function Footer() {
               color: 'rgba(255,255,255,0.85)',
               textDecoration: 'none',
               width: 'fit-content',
-              cursor: 'none',
+              cursor: 'pointer',
               transition: 'color 0.2s ease, transform 0.2s ease',
             }}
             onMouseEnter={(e) => {
@@ -291,7 +291,7 @@ export default function Footer() {
                   color: '#ffffff',
                   textDecoration: 'none',
                   transition: 'all 0.3s ease',
-                  cursor: 'none',
+                  cursor: 'pointer',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = '#ffffff';
@@ -350,7 +350,7 @@ export default function Footer() {
                 borderRadius: '999px',
                 textDecoration: 'none',
                 width: 'fit-content',
-                cursor: 'none',
+                cursor: 'pointer',
                 transition: 'all 0.3s ease',
               }}
               onMouseEnter={(e) => {
@@ -422,7 +422,7 @@ export default function Footer() {
                 fontWeight: 400,
                 color: 'rgba(255,255,255,0.3)',
                 textDecoration: 'none',
-                cursor: 'none',
+                cursor: 'pointer',
               }}
               onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.8)')}
               onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}

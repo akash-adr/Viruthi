@@ -72,7 +72,7 @@ function RedButton({ children, onClick }: { children: React.ReactNode; onClick?:
         fontWeight: 600,
         letterSpacing: '0.18em',
         textTransform: 'uppercase',
-        cursor: 'none',
+        cursor: 'pointer',
         transition: 'all 0.3s ease',
         transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
         boxShadow: hovered ? '0 12px 32px rgba(192,57,43,0.35)' : '0 4px 16px rgba(192,57,43,0.2)',
@@ -105,7 +105,7 @@ function OutlineButton({ children, onClick }: { children: React.ReactNode; onCli
         fontWeight: 600,
         letterSpacing: '0.18em',
         textTransform: 'uppercase',
-        cursor: 'none',
+        cursor: 'pointer',
         transition: 'all 0.3s ease',
       }}
     >

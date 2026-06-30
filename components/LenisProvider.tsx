@@ -1,9 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import Lenis from 'lenis';
 
 export default function LenisProvider({ children }: { children: React.ReactNode }) {
+  const lenisRef = useRef<Lenis | null>(null);
   useEffect(() => {
     const lenis = new Lenis({
       // Slower duration = that heavy, deliberate Apple-like scroll feel
@@ -16,6 +18,8 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
       wheelMultiplier: 0.7,   // Resistance — each scroll tick moves less
       touchMultiplier: 1.2,
     });
+
+        lenisRef.current = lenis;
 
     let rafId: number;
 
@@ -31,6 +35,23 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
       lenis.destroy();
     };
   }, []);
+
+  const pathname = usePathname();
+  useEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+    
+    // Fallback for good measure
+    setTimeout(() => {
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      }
+      window.scrollTo(0, 0);
+    }, 50);
+  }, [pathname]);
 
   return <>{children}</>;
 }
