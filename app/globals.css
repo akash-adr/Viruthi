@@ -104,7 +104,6 @@ body {
   background-color: var(--page-bg);
   color: var(--ink);
   font-family: var(--font-satoshi);
-  cursor: none;
   overflow-x: clip;
 }
 
@@ -115,7 +114,6 @@ body {
 a,
 button,
 [role="button"] {
-  cursor: none;
   text-decoration: none;
   outline: none;
 }
@@ -133,40 +131,8 @@ hr {
   width: 100%;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   CUSTOM CURSOR
-   ───────────────────────────────────────────────────────────────────────────── */
 
-.cursor {
-  width: 8px;
-  height: 8px;
-  background: var(--ink);
-  border-radius: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s var(--ease-premium), 
-              width 0.3s var(--ease-premium), 
-              height 0.3s var(--ease-premium),
-              opacity 0.3s ease;
-  will-change: transform;
-}
-
-.cursor--expanded {
-  width: 24px;
-  height: 24px;
-  opacity: 0.4;
-}
-
-.cursor--inverted {
-  background: #ffffff !important;
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   HOVER TRANSITIONS — global rule for all interactive text/buttons
+/* HOVER TRANSITIONS — global rule for all interactive text/buttons
    ───────────────────────────────────────────────────────────────────────────── */
 
 .hover-opacity {

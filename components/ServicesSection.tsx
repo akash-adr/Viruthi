@@ -415,10 +415,12 @@ export default function ServicesSection() {
           </div>
 
           <div className="service-actions">
-            <button className="service-btn" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
-              <span>Learn More</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
+            <Link href="/services/family-matters" style={{ textDecoration: 'none', display: 'block' }}>
+              <button className="service-btn" style={{ width: '100%' }}>
+                <span>Learn More</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </Link>
             <button className="service-btn service-btn-primary" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
               <span>Book a Call</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -426,68 +428,125 @@ export default function ServicesSection() {
           </div>
         </motion.div>
 
-        {/* CARD 03 — Coming Soon */}
+        {/* CARD 03 — Parenting Coaching */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
-          className="service-card coming-soon"
+          className="service-card"
         >
-          <div className="coming-soon-inner">
-            <div className="coming-soon-orbit">
-              <div className="orbit-ring">
-                <div className="orbit-dot" />
-              </div>
-              <div className="orbit-ring" />
-              <div className="orbit-center-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(13,13,13,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="3"/>
-                  <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-                </svg>
-              </div>
+          <div className="card-top-bar">
+            <span className="service-number">Service — 03</span>
+            <div className="arrow-circle">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
-            <p className="cs-service-num">Service — 03</p>
-            <h3 className={`cs-title ${playfair.className}`}>Coming<br/><em>Soon</em></h3>
-            <p className="cs-desc">
-              A new exclusive service is currently under development. Stay tuned.
-            </p>
-            <div className="cs-pill">
-              <span className="cs-pill-dot" />
-              In Development
-            </div>
+          </div>
+          
+          <h3 className={`service-title ${playfair.className}`}>Parenting<br/>Coaching</h3>
+          <p className="service-desc">
+            Personalised 1:1 parenting coaching to help you build calm discipline, healthy screen habits, and confident parenting systems that create a more connected family life.
+          </p>
+
+          <div style={{ borderTop: '1px solid rgba(13,13,13,0.08)', paddingTop: '32px' }}>
+            <div className="practices-label">Core Practices &amp; Alignments:</div>
+            <ul className="practice-list">
+              <li className="practice-item">
+                <span className="practice-num">09</span>
+                <span className="practice-text">Positive discipline without yelling or guilt</span>
+              </li>
+              <li className="practice-item">
+                <span className="practice-num">10</span>
+                <span className="practice-text">Healthy screen time boundaries &amp; routines</span>
+              </li>
+              <li className="practice-item">
+                <span className="practice-num">11</span>
+                <span className="practice-text">Building confidence in everyday parenting decisions</span>
+              </li>
+              <li className="practice-item">
+                <span className="practice-num">12</span>
+                <span className="practice-text">Emotional regulation &amp; family communication</span>
+              </li>
+              <li className="practice-item">
+                <span className="practice-num">13</span>
+                <span className="practice-text">Teaching responsibility, values &amp; money habits</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="service-actions">
+            <Link href="/services/parenting-coaching" style={{ textDecoration: 'none', display: 'block' }}>
+              <button className="service-btn" style={{ width: '100%' }}>
+                <span>Learn More</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </Link>
+            <button className="service-btn service-btn-primary" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+              <span>Book a Call</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
           </div>
         </motion.div>
 
-        {/* CARD 04 — Coming Soon */}
+        {/* CARD 04 — Maternal Care */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, ease: EASE, delay: 0.3 }}
-          className="service-card coming-soon"
+          className="service-card"
         >
-          <div className="coming-soon-inner">
-            <div className="coming-soon-orbit">
-              <div className="orbit-ring">
-                <div className="orbit-dot" />
-              </div>
-              <div className="orbit-ring" />
-              <div className="orbit-center-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(13,13,13,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
-              </div>
+          <Link href="/services/maternal-care" style={{ textDecoration: 'none', display: 'block' }}>
+          <div className="card-top-bar">
+            <span className="service-number">Service — 04</span>
+            <div className="arrow-circle">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
-            <p className="cs-service-num">Service — 04</p>
-            <h3 className={`cs-title ${playfair.className}`}>Coming<br/><em>Soon</em></h3>
-            <p className="cs-desc">
-              Something meaningful is being shaped behind the scenes. We&apos;ll share more when it&apos;s ready.
-            </p>
-            <div className="cs-pill">
-              <span className="cs-pill-dot" />
-              In Development
-            </div>
+          </div>
+          
+          <h3 className={`service-title ${playfair.className}`}>Maternal<br/>Care</h3>
+          <p className="service-desc">
+            Compassionate, personalised maternal care supporting you through pregnancy, feeding, recovery, and early motherhood with expert guidance tailored to you and your baby.
+          </p>
+
+          <div style={{ borderTop: '1px solid rgba(13,13,13,0.08)', paddingTop: '32px' }}>
+            <div className="practices-label">Core Practices &amp; Alignments:</div>
+            <ul className="practice-list">
+              <li className="practice-item">
+                <span className="practice-num">14</span>
+                <span className="practice-text">Prenatal counselling &amp; birth preparation</span>
+              </li>
+              <li className="practice-item">
+                <span className="practice-num">15</span>
+                <span className="practice-text">Lactation, latch &amp; feeding support</span>
+              </li>
+              <li className="practice-item">
+                <span className="practice-num">16</span>
+                <span className="practice-text">Pumping routines &amp; milk supply guidance</span>
+              </li>
+              <li className="practice-item">
+                <span className="practice-num">17</span>
+                <span className="practice-text">Gentle weaning &amp; transition planning</span>
+              </li>
+              <li className="practice-item">
+                <span className="practice-num">18</span>
+                <span className="practice-text">Postnatal recovery &amp; emotional wellbeing</span>
+              </li>
+            </ul>
+          </div>
+          </Link>
+
+          <div className="service-actions">
+            <Link href="/services/maternal-care" style={{ textDecoration: 'none', display: 'block' }}>
+              <button className="service-btn" style={{ width: '100%' }}>
+                <span>Learn More</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </Link>
+            <button className="service-btn service-btn-primary" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+              <span>Book a Call</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
           </div>
         </motion.div>
 

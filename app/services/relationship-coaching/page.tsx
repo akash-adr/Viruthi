@@ -171,7 +171,7 @@ export default function RelationshipCoachingPage() {
 
   return (
     <main style={{ background: '#FFFFFF', color: '#111111', overflowX: 'hidden' }}>
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .s1-max { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
         @media (max-width: 1024px) { .s1-max { padding: 0 32px; } }
         @media (max-width: 768px)  { .s1-max { padding: 0 24px; } }
@@ -287,7 +287,7 @@ export default function RelationshipCoachingPage() {
           .s1-btn-row { flex-direction: column !important; align-items: stretch !important; }
           .s1-btn-row button, .s1-btn-row a { width: 100% !important; justify-content: center !important; }
         }
-      `}</style>
+      `}} />
 
       {/* ── HERO ── */}
       <div ref={heroRef} style={{ position: 'relative', width: '100%', height: '100vh', minHeight: '700px', overflow: 'hidden' }}>

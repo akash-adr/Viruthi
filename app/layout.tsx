@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import LenisProvider from "@/components/LenisProvider";
-import CustomCursor from "@/components/CustomCursor";
 
 export const metadata: Metadata = {
   title: "Viruthi",
@@ -30,7 +29,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body>
-        <CustomCursor />
+
         <TransitionProvider>
           <LenisProvider>
             <GlassNav />
